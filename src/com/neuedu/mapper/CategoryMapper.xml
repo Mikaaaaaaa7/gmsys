@@ -9,7 +9,7 @@
     delete from category
     where CID = #{cid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.neuedu.model.Category">
+  <insert id="insert" parameterType="com.neuedu.model.Category" useGeneratedKeys="true" keyProperty="cid">
     insert into category (CID, CNAME)
     values (#{cid,jdbcType=INTEGER}, #{cname,jdbcType=VARCHAR})
   </insert>

@@ -14,4 +14,6 @@ public interface CategoryMapper {
 
     int updateByPrimaryKey(Category record);
     List<Category> selectByCnamemohu(String cname);
+
+	//void updateByPrimaryKey(Integer cid, String cname);
 }

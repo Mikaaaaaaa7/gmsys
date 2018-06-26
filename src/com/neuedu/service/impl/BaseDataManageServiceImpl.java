@@ -32,4 +32,28 @@ public class BaseDataManageServiceImpl implements BaseDataManageService{
 		List<Category> categories = mapper.selectByCnamemohu(cname);
 		return categories;
 	}
+	@Override
+	public Category selectByCid(Integer cid) {
+		// TODO Auto-generated method stub
+		return mapper.selectByPrimaryKey(cid);
+	}
+	@Override
+	public Category findByCidchakan(Integer cid) {
+		// TODO Auto-generated method stub
+		return mapper.selectByPrimaryKey(cid);
+	}
+	public void updatezcfl(Category record) {
+		// TODO Auto-generated method stub
+		mapper.updateByPrimaryKey(record);
+	}
+	@Override
+	public void deletezcfl(Integer cid) {
+		// TODO Auto-generated method stub
+		mapper.deleteByPrimaryKey(cid);
+	}
+	@Override
+	public void addzcfl(Category record) {
+		// TODO Auto-generated method stub
+		mapper.insert(record);
+	}
 }
