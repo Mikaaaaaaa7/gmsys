@@ -23,6 +23,11 @@
     from category
     where CID = #{cid,jdbcType=INTEGER}
   </select>
+  <select id="selectByCnamemohu" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select CID, CNAME
+    from category
+    where CNAME like "%"#{cname,jdbcType=VARCHAR}"%"
+  </select>
   <select id="selectAll" resultMap="BaseResultMap">
     select CID, CNAME
     from category

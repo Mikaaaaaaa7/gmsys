@@ -6,4 +6,5 @@ import com.neuedu.model.Category;
 
 public interface BaseDataManageService {
 	public List<Category> selectAll();
+	public List<Category> selectByCnamemohu(String cname);
 }

@@ -1,4 +1,4 @@
-package com.neuedu.service;
+package com.neuedu.service.impl;
 
 import java.util.List;
 
@@ -24,5 +24,12 @@ public class BaseDataManageServiceImpl implements BaseDataManageService{
 	@Override//重新接口中定义的方法
 	public List<Category> selectAll(){
 		return mapper.selectAll();
+	}
+	
+	@Override
+	public List<Category> selectByCnamemohu(String cname) {
+		// TODO Auto-generated method stub
+		List<Category> categories = mapper.selectByCnamemohu(cname);
+		return categories;
 	}
 }
