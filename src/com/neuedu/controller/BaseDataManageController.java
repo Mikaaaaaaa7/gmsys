@@ -1,6 +1,8 @@
 package com.neuedu.controller;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.neuedu.model.Area;
+import com.neuedu.model.Balance;
 import com.neuedu.model.Category;
 import com.neuedu.model.Department;
 import com.neuedu.service.BaseDataManageService;
@@ -161,17 +164,22 @@ public class BaseDataManageController {
 		request.setAttribute("listDepartment", listdepartment);
 		return "bmxinxi";
 	}
-	/*//资产录入功能
+	//资产录入功能
 	@RequestMapping("/zc/add.do")
-	public String addzc(String zcname,String areaname, HttpServletRequest request){
-		Department record=new Department();
-		record.setDepartname(departname);
-		record.setAreaname(areaname);
-		baseDataManageService.addbm(record);
-		List<Department> listdepartment=baseDataManageService.selectAllDepartment();
-		request.setAttribute("listDepartment", listdepartment);
-		return "bmxinxi";
-	}*/
+	public String addzc(String zcname,Double zcnumber,BigDecimal price,Date year,Integer cid,Integer departid, HttpServletRequest request){
+		
+		Balance balance=new Balance();
+		//balance.setBcount(bcount);在这里加一个bid
+		balance.setBcount(zcnumber);
+		balance.setBdate(year);
+		balance.setBname(zcname);
+		balance.setCid(cid);
+		balance.setCname(baseDataManageService.selectByCid(cid).getCname());
+		balance.setDepartid(departid);
+		balance.setPrice(price);
+		baseDataManageService.addzc(balance);
+		return null;
+	}
 	//区域管理
 	@RequestMapping("/area/list.do")
 	public String areafindAll(HttpServletRequest request){

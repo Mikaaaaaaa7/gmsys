@@ -4,10 +4,13 @@ import java.util.List;
 
 import com.neuedu.mapper.AreaMapper;
 import com.neuedu.model.Area;
+import com.neuedu.model.Balance;
 import com.neuedu.model.Category;
 import com.neuedu.model.Department;
 
 public interface BaseDataManageService {
+	public void addzc(Balance record);
+	
 	public List<Category> selectAll();
 	public List<Category> selectByCnamemohu(String cname);
 	public Category selectByCid(Integer cid);

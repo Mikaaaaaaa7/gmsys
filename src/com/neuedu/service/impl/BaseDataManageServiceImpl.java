@@ -8,10 +8,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neuedu.mapper.AreaMapper;
+import com.neuedu.mapper.BalanceMapper;
 import com.neuedu.mapper.CategoryMapper;
 import com.neuedu.mapper.DepartmentMapper;
 import com.neuedu.mapper.UserAccountMapper;
 import com.neuedu.model.Area;
+import com.neuedu.model.Balance;
 import com.neuedu.model.Category;
 import com.neuedu.model.Department;
 import com.neuedu.model.UserAccount;
@@ -29,6 +31,9 @@ public class BaseDataManageServiceImpl implements BaseDataManageService{
 	
 	@Resource
 	private AreaMapper AreaMapper;
+	
+	@Resource
+	private BalanceMapper BalanceMapper;
 	
 	@Override//重新接口中定义的方法
 	public List<Category> selectAll(){
@@ -127,5 +132,10 @@ public class BaseDataManageServiceImpl implements BaseDataManageService{
 	public void addarea(Area record) {
 		// TODO Auto-generated method stub
 		AreaMapper.insert(record);
+	}
+	@Override
+	public void addzc(Balance record) {
+		// TODO Auto-generated method stub
+		BalanceMapper.insert(record);
 	}
 }

@@ -182,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <i class="am-icon-angle-right"></i>
                                     <span>部门设置</span>
                                     <i class="tpl-left-nav-content tpl-badge-success"></i>
-                                <a href="../files/addzc.jsp">
+                                <a href="/gmsys/files/addzc.jsp">
                                      <i class="am-icon-angle-right"></i>
                                         <span>资产录入</span>
                                      <i class="tpl-left-nav-content tpl-badge-primary"></i>
