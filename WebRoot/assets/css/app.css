@@ -1913,6 +1913,10 @@ ul.tpl-dropdown-content li>a.tpl-dropdown-content-message:last-child {
     margin-bottom: 0;
 }
 
+.myapp-login .am-form-group:first-child{
+	border-bottom: 1px solid #ccc;
+}
+
 .login-am-center {
     margin: 0 auto;
     float: none;
