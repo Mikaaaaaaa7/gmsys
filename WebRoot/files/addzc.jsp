@@ -318,7 +318,7 @@ document.getElementById("aa").style.display="";
 
 <%--内容 --%>
         <div class="tpl-content-wrapper">
-            <form action="${pageContext.request.contextPath}/zc/add.do" method="post"  name="form"" >
+            <form action="${pageContext.request.contextPath}/zc/add.do" method="post" name="form" >
 				<div class="MainDiv">
 				<table width="99%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				  <tr>
@@ -351,8 +351,8 @@ document.getElementById("aa").style.display="";
 									    <td width="35%"><input name='price' type="text" class="text" style="width:154px" value="" />
 									  </tr>
 									  <tr>
-									  <td nowrap align="right" width="15%">年限:</td>
-									    <td width="35%"><input name='year' type="text" class="text" style="width:154px" value="" /></td>
+									 <!--  <td nowrap align="right" width="15%">年限:</td>
+									    <td width="35%"><input name='year' type="text" class="text" style="width:154px" value="" /></td> -->
 									    <td nowrap align="right" width="15%">分类编号:</td>
 									    <td width="35%"><input name='cid' type="text" class="text" style="width:154px" value="" />
 									  </tr>
@@ -389,7 +389,7 @@ document.getElementById("aa").style.display="";
 						
 						<TR>
 							<TD colspan="2" align="center" height="50px">
-							<input type="submit" name="Submit" value="保存" class="button" onclick="alert('保存成功！');"/>　
+							<input type="submit" name="Submit" value="保存" class="button" onclick="alert('保存成功！');" />　
 							
 							<input type="button" name="Submit2" value="返回" class="button" onclick="window.history.go(-1);"/></TD>
 						</TR>

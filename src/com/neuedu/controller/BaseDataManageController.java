@@ -1,6 +1,7 @@
 package com.neuedu.controller;
 
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -166,19 +167,21 @@ public class BaseDataManageController {
 	}
 	//资产录入功能
 	@RequestMapping("/zc/add.do")
-	public String addzc(String zcname,Double zcnumber,BigDecimal price,Date year,Integer cid,Integer departid, HttpServletRequest request){
-		
+	public String addzc(String zcname,Double zcnumber,BigDecimal price,Integer cid,Integer departid, HttpServletRequest request){
 		Balance balance=new Balance();
 		//balance.setBcount(bcount);在这里加一个bid
+		Date day=new Date();    
+		//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		
 		balance.setBcount(zcnumber);
-		balance.setBdate(year);
+		balance.setBdate(day);
 		balance.setBname(zcname);
 		balance.setCid(cid);
 		balance.setCname(baseDataManageService.selectByCid(cid).getCname());
 		balance.setDepartid(departid);
 		balance.setPrice(price);
 		baseDataManageService.addzc(balance);
-		return null;
+		return "addzc";
 	}
 	//区域管理
 	@RequestMapping("/area/list.do")
