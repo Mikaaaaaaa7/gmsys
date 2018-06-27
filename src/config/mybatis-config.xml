@@ -10,5 +10,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     
     <mappers>
     	<mapper resource="com/neuedu/mapper/UserAccountMapper.xml" />
+    	<mapper resource="com/neuedu/mapper/CategoryMapper.xml" />
+    	<mapper resource="com/neuedu/mapper/DepartmentMapper.xml" />
     </mappers>
 </configuration>

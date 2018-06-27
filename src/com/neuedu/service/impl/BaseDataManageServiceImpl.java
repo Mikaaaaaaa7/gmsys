@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.neuedu.mapper.CategoryMapper;
+import com.neuedu.mapper.DepartmentMapper;
 import com.neuedu.mapper.UserAccountMapper;
 import com.neuedu.model.Category;
+import com.neuedu.model.Department;
 import com.neuedu.model.UserAccount;
 import com.neuedu.service.BaseDataManageService;
 
@@ -20,6 +22,8 @@ public class BaseDataManageServiceImpl implements BaseDataManageService{
 	@Resource  //注解注入
 	private CategoryMapper mapper;
 	
+	@Resource
+	private DepartmentMapper DepartmentMapper;
 	
 	@Override//重新接口中定义的方法
 	public List<Category> selectAll(){
@@ -55,5 +59,36 @@ public class BaseDataManageServiceImpl implements BaseDataManageService{
 	public void addzcfl(Category record) {
 		// TODO Auto-generated method stub
 		mapper.insert(record);
+	}
+	
+	@Override
+	public List<Department> selectAllDepartment() {
+		// TODO Auto-generated method stub
+		return DepartmentMapper.selectAll();
+	}
+	@Override
+	public Department selectByDid(Integer departid) {
+		// TODO Auto-generated method stub
+		return DepartmentMapper.selectByPrimaryKey(departid);
+	}
+	@Override
+	public Department findByDidchakan(Integer departid) {
+		// TODO Auto-generated method stub
+		return DepartmentMapper.selectByPrimaryKey(departid);
+	}
+	@Override
+	public void updatebm(Department record) {
+		// TODO Auto-generated method stub
+		DepartmentMapper.updateByPrimaryKey(record);
+	}
+	@Override
+	public void deletebm(Integer departid) {
+		// TODO Auto-generated method stub
+		DepartmentMapper.deleteByPrimaryKey(departid);
+	}
+	@Override
+	public void addbm(Department record) {
+		// TODO Auto-generated method stub
+		DepartmentMapper.insert(record);
 	}
 }
