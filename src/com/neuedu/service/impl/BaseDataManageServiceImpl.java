@@ -7,9 +7,11 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neuedu.mapper.AreaMapper;
 import com.neuedu.mapper.CategoryMapper;
 import com.neuedu.mapper.DepartmentMapper;
 import com.neuedu.mapper.UserAccountMapper;
+import com.neuedu.model.Area;
 import com.neuedu.model.Category;
 import com.neuedu.model.Department;
 import com.neuedu.model.UserAccount;
@@ -24,6 +26,9 @@ public class BaseDataManageServiceImpl implements BaseDataManageService{
 	
 	@Resource
 	private DepartmentMapper DepartmentMapper;
+	
+	@Resource
+	private AreaMapper AreaMapper;
 	
 	@Override//重新接口中定义的方法
 	public List<Category> selectAll(){
@@ -90,5 +95,37 @@ public class BaseDataManageServiceImpl implements BaseDataManageService{
 	public void addbm(Department record) {
 		// TODO Auto-generated method stub
 		DepartmentMapper.insert(record);
+	}
+	
+	@Override
+	public List<Area> selectAllArea() {
+		// TODO Auto-generated method stub
+		return AreaMapper.selectAll();
+	}
+	
+	@Override
+	public Area selectByAreaid(Integer areaid) {
+		// TODO Auto-generated method stub
+		return AreaMapper.selectByPrimaryKey(areaid);
+	}
+	@Override
+	public void updatearea(Area record) {
+		// TODO Auto-generated method stub
+		AreaMapper.updateByPrimaryKey(record);
+	}
+	@Override
+	public Area findByAreaidchakan(Integer areaid) {
+		// TODO Auto-generated method stub
+		return AreaMapper.selectByPrimaryKey(areaid);
+	}
+	@Override
+	public void deletearea(Integer areaid) {
+		// TODO Auto-generated method stub
+		AreaMapper.deleteByPrimaryKey(areaid);
+	}
+	@Override
+	public void addarea(Area record) {
+		// TODO Auto-generated method stub
+		AreaMapper.insert(record);
 	}
 }

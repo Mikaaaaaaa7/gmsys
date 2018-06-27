@@ -1,4 +1,12 @@
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@page import="com.neuedu.model.Area"%>
+<%@page import="org.springframework.web.context.request.RequestAttributes"%>
+<%@page import="com.sun.xml.internal.ws.client.RequestContext"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="com.neuedu.model.Category"%>
+<%@page import="java.util.List" isELIgnored="false"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+    <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -22,6 +30,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css">
     <script src="${pageContext.request.contextPath}/assets/js/echarts.min.js"></script>
+    <link rel="stylesheet" rev="stylesheet" href="../css/style.css" type="text/css" media="all" />
+
+
+<script language="JavaScript" type="text/javascript">
+function tishi()
+{
+  var a=confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
+  if(a!=true)return false;
+  window.open("冲突页.htm","","depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
+}
+
+function check()
+{
+document.getElementById("aa").style.display="";
+}
+
+</script>
+<style type="text/css">
+<!--
+.atten {font-size:12px;font-weight:normal;color:#F00;}
+-->
+</style>
 </head>
 
 <body data-type="index">
@@ -30,14 +60,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <header class="am-topbar am-topbar-inverse admin-header">
         <div class="am-topbar-brand">
             <a href="javascript:;" class="tpl-logo" style="margin-top: 30px;">
-                <img src="assets/img/logo.png" alt="">
+                <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
             </a>
         </div>
         <div class="am-icon-list tpl-header-nav-hover-ico am-fl am-margin-right" style="margin-top: 35px;">
 
         </div>
 
-        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}" ><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
+        <button class="am-topbar-btn am-topbar-toggle am-btn am-btn-sm am-btn-success am-show-sm-only" data-am-collapse="{target: '#topbar-collapse'}"><span class="am-sr-only">导航切换</span> <span class="am-icon-bars"></span></button>
 
         <div class="am-collapse am-topbar-collapse" id="topbar-collapse">
 
@@ -171,7 +201,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             <span>基础数据管理</span>
 			    <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
                         </a>
-			<ul class="tpl-left-nav-sub-menu">
+			<ul class="tpl-left-nav-sub-menu" style="display:block">
                             <li>
                                 <a href="${pageContext.request.contextPath}/category/findAll.do">
                                     <i class="am-icon-angle-right"></i>
@@ -186,7 +216,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                      <i class="am-icon-angle-right"></i>
                                         <span>资产录入</span>
                                      <i class="tpl-left-nav-content tpl-badge-primary"></i>
-                                <a href="${pageContext.request.contextPath}/area/list.do">
+                                <a href="../area/list.do" class="active">
                                      <i class="am-icon-angle-right"></i>
                                      <span>区域管理</span>
                                 </a>
@@ -296,7 +326,69 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <%--内容 --%>
         <div class="tpl-content-wrapper">
-            
+            <form action="${pageContext.request.contextPath}/area/update.do" method="post"  name="form"  >
+				<div class="MainDiv">
+				<table width="99%" border="0" cellpadding="0" cellspacing="0" class="CContent">
+				  <tr>
+				      <th class="tablestyle_title" >区域基本信息修改</th>
+				  </tr>
+				  <tr>
+				    <td class="CPanel">
+						<table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+						<tr><td align="left">
+						<input type="button" name="Submit" value="保存" class="button" onclick="alert('保存成功！');"/>　
+							<input type="button" name="Submit2" value="返回" class="button" onclick="window.history.go(-1);"/>
+						</td></tr>
+								<TR>
+							<TD width="100%">
+								<fieldset style="height:100%;">
+								<legend>区域信息</legend>
+									  <table border="0" cellpadding="2" cellspacing="1" style="width:100%">
+									 <%
+									   Area c=(Area)request.getAttribute("area");			 
+									 %>
+									<%--    <c:forEach items="${listCategory}" var="c"> --%>
+									  <tr>
+									  <td nowrap align="right" width="15%">区域编号:</td>
+									
+									    <td width="35%"><input name='areaid' type="text" class="text" style="width:154px" value=" <%=c.getAreaid() %>" />
+								        <span class="red">*</span></td>
+									  <td nowrap align="right" width="15%">区域名称:</td>
+									
+									    <td width="35%"><input name='areaname' type="text" class="text" style="width:154px" value=" <%=c.getAreaname() %>" />
+								        <span class="red">*</span></td>
+									   
+									  </tr>
+							
+				              
+								<%-- </c:forEach> --%>
+									  </table>
+							  <br />
+								</fieldset>			</TD>
+						</TR>
+						</TABLE>
+					
+					
+					 </td>
+				  </tr>
+						<TR>
+							<TD colspan="2" align="center" height="50px">
+							<input type="submit" name="Submit" value="保存" class="button" onclick="alert('保存成功！');"/>　
+							
+							<input type="button" name="Submit2" value="返回" class="button" onclick="window.history.go(-1);"/></TD>
+						</TR>
+						</TABLE>
+					
+					
+					 </td>
+				  </tr>
+				  
+				  
+				  
+				  </table>
+				
+				</div>
+				</form>
             
 
 

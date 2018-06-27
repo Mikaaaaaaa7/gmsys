@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.neuedu.model.Area;
 import com.neuedu.model.Category;
 import com.neuedu.model.Department;
 import com.neuedu.service.BaseDataManageService;
@@ -160,4 +161,81 @@ public class BaseDataManageController {
 		request.setAttribute("listDepartment", listdepartment);
 		return "bmxinxi";
 	}
+	/*//资产录入功能
+	@RequestMapping("/zc/add.do")
+	public String addzc(String zcname,String areaname, HttpServletRequest request){
+		Department record=new Department();
+		record.setDepartname(departname);
+		record.setAreaname(areaname);
+		baseDataManageService.addbm(record);
+		List<Department> listdepartment=baseDataManageService.selectAllDepartment();
+		request.setAttribute("listDepartment", listdepartment);
+		return "bmxinxi";
+	}*/
+	//区域管理
+	@RequestMapping("/area/list.do")
+	public String areafindAll(HttpServletRequest request){
+		List<Area> listdepartment=baseDataManageService.selectAllArea();
+		request.setAttribute("areaList", listdepartment);
+		return "quyuxinxi";
+	}
+	//在浏览中通过URL调用这个方法进行登录:findById.do
+	@RequestMapping("/area/findById.do")
+	public String findByAreaid(@RequestParam("areaid") Integer areaid,HttpServletRequest request){
+		Area area=baseDataManageService.selectByAreaid(areaid);
+		request.setAttribute("area", area);
+		return "updatequyu";
+	}
+	//在浏览中通过URL调用这个方法进行登录:findByIdchakan.do
+	@RequestMapping("/area/findByIdchakan.do")
+	public String findByAreaidchakan(@RequestParam("areaid") Integer areaid,HttpServletRequest request){
+		Area area=baseDataManageService.findByAreaidchakan(areaid);
+		request.setAttribute("area", area);
+		return "quyudetails";
+	}
+	//在浏览中通过URL调用这个方法进行登录:update.do
+	@RequestMapping("/area/update.do")
+	public String updatearea(Integer areaid,String areaname,HttpServletRequest request){
+		Area record=baseDataManageService.selectByAreaid(areaid);
+		record.setAreaname(areaname);
+		baseDataManageService.updatearea(record);
+		request.setAttribute("area", record);
+		return "quyudetails";
+	}
+	//在浏览中通过URL调用这个方法进行登录:delete.do
+	@RequestMapping("/area/delete.do")
+	public String deletearea(@RequestParam("areaid") String areaid, HttpServletRequest request){
+		//baseDataManageService.deletezcfl(cid);
+		String[] sourcestrStrings=areaid.split(":");
+		int[] sourceint=new int[sourcestrStrings.length];
+		for (int i = 0; i < sourcestrStrings.length; i++) {
+			sourceint[i]=Integer.parseInt(sourcestrStrings[i]);
+			baseDataManageService.deletearea(sourceint[i]);
+		}
+		List<Area> listdepartment=baseDataManageService.selectAllArea();
+		request.setAttribute("areaList", listdepartment);
+		return "quyuxinxi";
+	}
+	//在浏览中通过URL调用这个方法进行登录:add.do
+	@RequestMapping("/area/add.do")
+	public String addarea(String areaname,Integer relative,Integer areaid, HttpServletRequest request){
+		Area record=new Area();
+		record.setAreaid(areaid);
+		record.setAreaname(areaname);
+		record.setRelative(relative);
+		baseDataManageService.addarea(record);
+		List<Area> listdepartment=baseDataManageService.selectAllArea();
+		request.setAttribute("areaList", listdepartment);
+		return "quyuxinxi";
+	}
+	//在浏览中通过URL调用这个方法进行登录:findBymh.do
+	@RequestMapping("/area/findBymh.do")
+	public String findByAreaidmh(@RequestParam("zha") Integer areaid,HttpServletRequest request){
+		Area department=baseDataManageService.selectByAreaid(areaid);
+		List<Object> list = new ArrayList<Object>();
+		list.add(department);
+		request.setAttribute("areaList", list);
+		return "quyuxinxi";
+	}
+	
 }

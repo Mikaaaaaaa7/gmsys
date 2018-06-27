@@ -89,17 +89,35 @@ function unselectAll(){
 
 
 function deleteArea(){
-	
-	if(confirm("确定删除？")){
-	   document.getElementById("fom").action="../area/delete.do";
-	   document.getElementById("fom").submit();
+	var obj = document.fom.elements;
+	var  paramUrl="";
+	for (var i=0;i<obj.length;i++){
+		if (obj[i].name=="delid"&&obj[i].checked ==true){
+			paramUrl+=obj[i].value+":";
+			
+		}
 	}
+	document.getElementById("fom").action="${pageContext.request.contextPath}/area/delete.do?areaid="+paramUrl;
+	document.getElementById("fom").submit();
 }
-
+function check(){
+	var obj = document.fom.elements;
+	var  chazhao="";
+	for (var i=0;i<obj.length;i++){
+		if (obj[i].name=="gongs"){
+			chazhao+=obj[i].value
+			
+		}
+	}
+	var params = encodeURI(encodeURI(chazhao));
+	 document.getElementById("fom").action="${pageContext.request.contextPath}/area/findBymh.do?zha="+params; 
+}
 function link(){
   //  document.getElementById("fom").action="addquyu.htm";
    //document.getElementById("fom").submit();
-   location.href="<%=path%>/files/addquyu.htm"
+    document.getElementById("fom").action="../files/addarea.jsp";
+   document.getElementById("fom").submit();
+
 }
 
 </SCRIPT>
@@ -387,10 +405,10 @@ function link(){
 						    <tr>
 							  <td width="24"><img src="../images/ico07.gif" width="20" height="18" /></td>
 							  <td width="519"><label>区域编号:
-							      <input name="text" type="text" nam="gongs" />
+							      <input type="text" name="gongs" />
 							  </label>
 							    </input>
-							    <input name="Submit" type="button" class="right-button02" value="查 询" /></td>
+							    <input name="Submit" type="submit" class="right-button02" value="查 询" onclick="check();" /></td>
 							   <td width="679" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>	
 						    </tr>
 				          </table></td>
@@ -425,12 +443,11 @@ function link(){
 				                  <!-- 使用jsp的标签技术显示数据，areaList是在控制器中保存数据的键名，area是一个临时的名称，它可以在循环中获取数据 -->
 				                  <c:forEach items="${areaList}" var="area">
 				                   <tr>
-								      <td bgcolor="#FFFFFF"><input type="checkbox" name="areaid" value="${area.areaId}"/></td>
-				                    <td bgcolor="#FFFFFF">${area.areaId}</td>
-									          <td height="20" bgcolor="#FFFFFF">${area.areaName }</td>
-				                    <td height="20" bgcolor="#FFFFFF">${area.relative==0?"集团":area.parent.areaName}</td>
-									          <td bgcolor="#FFFFFF"><a href="<%=path%>/files/updatequyu.htm">编辑</a>&nbsp;|&nbsp;<a href="<%=path%>/files/quyudetails.html">查看</a></td>
-				                  </tr>
+								      <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="${area.areaid}"/></td>
+				                    <td bgcolor="#FFFFFF">${area.areaid}</td>
+									          <td height="20" bgcolor="#FFFFFF">${area.areaname }</td>
+				                    <td height="20" bgcolor="#FFFFFF">${area.relative==0?"集团":area.areaname}</td>
+									          <td bgcolor="#FFFFFF"><a href="${pageContext.request.contextPath}/area/findById.do?areaid=${area.areaid}">编辑</a>&nbsp;|&nbsp;<a href="${pageContext.request.contextPath}/area/findByIdchakan.do?areaid=${area.areaid}">查看</a></td>
 				                  </c:forEach>
 				                  
 				                
