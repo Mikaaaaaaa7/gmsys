@@ -329,7 +329,7 @@ document.getElementById("aa").style.display="";
 						
 						<table border="0" cellpadding="0" cellspacing="0" style="width:100%">
 						<tr><td align="left">
-						<input type="button" name="Submit" value="保存" class="button" onclick="alert('保存成功！');"/>　
+						<!-- <input type="button" name="Submit" value="保存" class="button" onclick="alert('保存成功！');"/>　 -->
 							
 							<input type="button" name="Submit2" value="返回" class="button" onclick="window.history.go(-1);"/>
 						</td></tr>

@@ -27,6 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css">
     <script src="${pageContext.request.contextPath}/assets/js/echarts.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
     <style type="text/css">
 <!--
 body {
@@ -95,6 +96,24 @@ function link(){
     document.getElementById("fom").action="addproduct.htm";
    document.getElementById("fom").submit();
 }
+
+$(function () {
+	
+	$("#delBtn").click(function() {
+		bqstring = $("input:checkbox[name='delid']:checked").map(function(index,elem) {
+            return $(elem).val();
+        }).get().join('-');
+        //alert("选中的checkbox的值为："+bqstring);
+        $("#fom").attr("action","${pageContext.request.contextPath}/product/delete.do?number="+bqstring);
+        $("#fom").submit();
+    });
+	$("#chaxun").click(function() {
+		var bq= $("#text").val();
+        //alert("搜索的值为："+bq);
+        $("#fom").attr("action","${pageContext.request.contextPath}/product/findById.do?id="+bq);
+        $("#fom").submit();
+    });
+})
 
 </SCRIPT>
 <body data-type="index">
@@ -381,10 +400,10 @@ function link(){
 						    <tr>
 							  <td width="24"><img src="../images/ico07.gif" width="20" height="18" /></td>
 							  <td width="519"><label>产品编号:
-							      <input name="text" type="text" nam="gongs" />
+							      <input name="text" id="text" type="text" nam="gongs" />
 							  </label>
 							    </input>
-							    <input name="Submit" type="button" class="right-button02" value="查 询" /></td>
+							    <input name="Submit" type="button" id="chaxun" class="right-button02" value="查 询" /></td>
 							   <td width="679" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>	
 						    </tr>
 				          </table></td>
@@ -394,12 +413,13 @@ function link(){
 				    <td><table id="subtree1" style="DISPLAY: " width="100%" border="0" cellspacing="0" cellpadding="0">
 				        <tr>
 				          <td><table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
-				          	<!--  <tr>
-				               <td height="20"><span class="newfont07">选择：<a href="#" class="right-font08" onclick="selectAll();">全选</a>-<a href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
-						           <input name="Submit" type="button" class="right-button08" value="删除所选产品信息" /> <input name="Submit" type="button" class="right-button08" value="添加产品信息" onclick="link();" />
-						           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-					              </td>
-				          </tr> -->
+					          <tr>
+					               <td height="20"><span class="newfont07">选择：<a href="#" class="right-font08" onclick="selectAll();">全选</a>-<a href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
+							           <input name="Submit" type="button" id="delBtn" class="right-button08" value="删除所选产品信息" /> 
+							           <!-- <input name="Submit" type="button" class="right-button08" value="添加产品信息" onclick="link();" /> -->
+							           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+						              </td>
+					          </tr>
 				              <tr>
 				                <td height="40" class="font42"><table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
 				
@@ -410,7 +430,6 @@ function link(){
 								    <td width="8%" align="center" bgcolor="#EEEEEE">选择</td>
 				            <td width="12%" height="20" align="center" bgcolor="#EEEEEE">产品编号</td>
 									 <td width="12%" height="20" align="center" bgcolor="#EEEEEE">产品名称</td>
-				           <td width="10%" align="center" bgcolor="#EEEEEE">数量</td>
 				            <td width="10%" align="center" bgcolor="#EEEEEE">价格</td>
 				           <td width="10%" align="center" bgcolor="#EEEEEE">供应商编号</td>
 				
@@ -420,27 +439,50 @@ function link(){
 				                 
 				                 
 				               <%
+				               
+						           if(request.getAttribute("query")==null)
+						           {
 				              		List<Product> list=(List<Product>)request.getAttribute("listProduct");
 				              		Iterator<Product> it=list.iterator();
-				              		System.out.println("+++++++++");
 				              		while(it.hasNext()){
 				              	
 				              			Product v=it.next();
 				              	%>  
 				                 
 				                 
-				                  <tr>
+				                  <tr style="text-align: center;">
 				
-								            <td bgcolor="#FFFFFF"><input type="checkbox" name="delid"/></td>
+						            <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="<%=v.getProdid() %>"/></td>
 				                    <td bgcolor="#FFFFFF"><%=v.getProdid() %></td>
-									          <td height="20" bgcolor="#FFFFFF"><%=v.getProdname() %></td>
-				                    <td bgcolor="#FFFFFF"><%=v.getBuycount() %></td>
+						          	<td height="20" bgcolor="#FFFFFF"><%=v.getProdname() %></td>
 				                     <td bgcolor="#FFFFFF"><%=v.getProdcount() %></td>
 				                    <td height="20" bgcolor="#FFFFFF"><%=v.getProvid() %></td>
 				                    
-									         <td bgcolor="#FFFFFF"><a href="addproduct.htm">编辑</a>&nbsp;|&nbsp;<a href="productdetails.html">查看</a></td> 
+							         <td bgcolor="#FFFFFF">
+								         <a href="addproduct.htm">编辑</a>&nbsp;|&nbsp;
+								         <a href="productdetails.html">查看</a>
+							         </td> 
 				                  </tr>
-				                  <%} %>
+				                  <%
+					                  	}
+					                  } else {
+					                  	Product ag=(Product)request.getAttribute("query");
+				                   %>
+				                   
+				                  	<tr style="text-align: center;">
+					
+							            <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="<%=ag.getProdid() %>"/></td>
+					                    <td bgcolor="#FFFFFF"><%=ag.getProdid() %></td>
+							          	<td height="20" bgcolor="#FFFFFF"><%=ag.getProdname() %></td>
+				                     	<td bgcolor="#FFFFFF"><%=ag.getProdcount() %></td>
+					                    <td height="20" bgcolor="#FFFFFF"><%=ag.getProvid() %></td>
+					                    
+								         <td bgcolor="#FFFFFF">
+									         <a href="addproduct.htm">编辑</a>&nbsp;|&nbsp;
+									         <a href="productdetails.html">查看</a>
+								         </td> 
+				                  	</tr>
+				                   <%} %>
 				                
 				 
 				                </table></td>

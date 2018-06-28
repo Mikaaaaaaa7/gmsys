@@ -30,8 +30,8 @@
     where PRODID = #{prodid,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select PRODID, PRODNAME, PRODCOUNT, PROVID
-    from product
+    select PRODID, PRODNAME, PRODCOUNT, prod.PROVID
+    from product prod
   </select>
   <select id="selectByProvid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select PRODID, PRODNAME, PRODCOUNT, PROVID

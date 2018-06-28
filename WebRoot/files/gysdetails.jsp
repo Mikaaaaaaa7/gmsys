@@ -377,7 +377,9 @@ function link(){
 				    <td height="62" background="../images/nav04.gif">         
 					<table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
 					<tr>
-						<td width="21">&nbsp;</td>
+						<td width="21">
+							<input type="button" name="Submit2" value="返回" class="button" onclick="window.history.go(-1);"/>
+						</td>
 					</tr>
 				  </table></td>
 				  </tr>

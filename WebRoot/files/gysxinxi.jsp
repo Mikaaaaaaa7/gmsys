@@ -1,6 +1,8 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="com.neuedu.model.Provider"%>
 <%@page import="java.util.List" isELIgnored="false"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="b"%>
@@ -27,6 +29,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css">
     <script src="${pageContext.request.contextPath}/assets/js/echarts.min.js"></script>
+	<script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
     <style type="text/css">
 <!--
 body {
@@ -95,6 +98,24 @@ function link(){
     document.getElementById("fom").action="../files/addgys.jsp";
    document.getElementById("fom").submit();
 }
+
+$(function () {
+	
+	$("#delBtn").click(function() {
+		bqstring = $("input:checkbox[name='delid']:checked").map(function(index,elem) {
+            return $(elem).val();
+        }).get().join('-');
+        //alert("选中的checkbox的值为："+bqstring);
+        $("#fom").attr("action","${pageContext.request.contextPath}/provider/delete.do?number="+bqstring);
+        $("#fom").submit();
+    });
+	$("#chaxun").click(function() {
+		var bq= $("#text").val();
+        //alert("搜索的值为："+bq);
+        $("#fom").attr("action","${pageContext.request.contextPath}/provider/findById.do?id="+bq);
+        $("#fom").submit();
+    });
+})
 
 </SCRIPT>
 <body data-type="index">
@@ -381,10 +402,10 @@ function link(){
 						    <tr>
 							  <td width="24"><img src="../images/ico07.gif" width="20" height="18" /></td>
 							  <td width="519"><label>供应商编号:
-							      <input name="text" type="text" nam="gongs" />
+							      <input name="text" type="text" id="text" nam="gongs" />
 							  </label>
 							    </input>
-							    <input name="Submit" type="button" class="right-button02" value="查 询" /></td>
+							    <input name="Submit" type="button" id="chaxun" class="right-button02" value="查 询" /></td>
 							   <td width="679" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>	
 						    </tr>
 				          </table></td>
@@ -396,7 +417,7 @@ function link(){
 				          <td><table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
 				          	 <tr>
 				               <td height="20"><span class="newfont07">选择：<a href="#" class="right-font08" onclick="selectAll();">全选</a>-<a href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
-						           <input name="Submit" type="button" class="right-button08" value="删除所选供应商信息" /> <input name="Submit" type="button" class="right-button08" value="添加供应商信息" onclick="link();" />
+						           <input name="Submit" type="button" id="delBtn" class="right-button08" value="删除所选供应商信息" /> <input name="Submit" type="button" class="right-button08" value="添加供应商信息" onclick="link();" />
 						           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
 					              </td>
 				          </tr>
@@ -419,6 +440,10 @@ function link(){
 				
 				
 				 				<%
+				 				
+		           				SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					           if(request.getAttribute("query")==null)
+					           {
 				              		List<Provider> list=(List<Provider>)request.getAttribute("listProvider");
 				              	Iterator<Provider> it=list.iterator();
 				              	while(it.hasNext()){
@@ -427,16 +452,38 @@ function link(){
 				              	%>
 				
 				
-				                  <tr>
-				                    <td bgcolor="#FFFFFF"><input type="checkbox" name="delid"/></td>
+				                  <tr style="text-align: center;">
+				                    <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="<%=b.getProvid() %>"/></td>
 				                     <td bgcolor="#FFFFFF"><%=b.getProvid() %></td>
 				                    <td height="20" bgcolor="#FFFFFF"><%=b.getProvname() %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getPhone() %></td>
 				                    <td height="20" bgcolor="#FFFFFF"><%=b.getAddress() %></td>
 				                    <td bgcolor="#FFFFFF">2008-08-30</td>
-				                    <td bgcolor="#FFFFFF"><a href="${pageContext.request.contextPath}/provider/find2.do?id=<%=b.getProvid() %>">编辑</a>&nbsp;|&nbsp;<a href="${pageContext.request.contextPath}/provider/find.do?id=<%=b.getProvid() %>">查看</a></td>
+				                    <td bgcolor="#FFFFFF">
+					                    <a href="${pageContext.request.contextPath}/provider/find2.do?id=<%=b.getProvid() %>">编辑</a>&nbsp;|&nbsp;
+					                    <a href="${pageContext.request.contextPath}/provider/find.do?id=<%=b.getProvid() %>">查看</a>
+				                    </td>
 				                  </tr>
 				                  
+				                 <%
+				                 } 
+				                 } else {
+				                 	Provider ag=(Provider)request.getAttribute("query");
+				                 %>
+				                 
+				                  <tr style="text-align: center;">
+				                    <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="<%=ag.getProvid() %>"/></td>
+				                     <td bgcolor="#FFFFFF"><%=ag.getProvid() %></td>
+				                    <td height="20" bgcolor="#FFFFFF"><%=ag.getProvname() %></td>
+				                    <td bgcolor="#FFFFFF"><%=ag.getPhone() %></td>
+				                    <td height="20" bgcolor="#FFFFFF"><%=ag.getAddress() %></td>
+				                    <td bgcolor="#FFFFFF">2008-08-30</td>
+				                    <td bgcolor="#FFFFFF">
+					                    <a href="${pageContext.request.contextPath}/provider/find2.do?id=<%=ag.getProvid() %>">编辑</a>&nbsp;|&nbsp;
+					                    <a href="${pageContext.request.contextPath}/provider/find.do?id=<%=ag.getProvid() %>">查看</a>
+				                    </td>
+				                  </tr>
+				                 
 				                 <%} %>
 				                  
 				                </table></td>
