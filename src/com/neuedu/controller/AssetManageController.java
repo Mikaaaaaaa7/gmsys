@@ -51,9 +51,13 @@ public class AssetManageController {
 	 */
 	@RequestMapping("/buy/findById3")
 	public String findById3(@RequestParam("id") Integer id, HttpServletRequest request) {
-		Buy Buy1 = assetManageService.findById(id);
-
-		request.setAttribute("Buy1", Buy1);
+		if (id != null) {
+			Buy Buy1 = assetManageService.findById(id);
+			request.setAttribute("Buy1", Buy1);
+		} else {
+			List<Buy> listBuy = assetManageService.selectAll();
+			request.setAttribute("listBuy", listBuy);
+		}
 		return "caigouxinxi";
 	}
 
@@ -238,9 +242,13 @@ public class AssetManageController {
 	 */
 	@RequestMapping("/translate/findById")
 	public String findById4(@RequestParam("id") Integer id, HttpServletRequest request) {
-		Translate query = assetManageService.findById2(id);
-
-		request.setAttribute("query", query);
+		if (id != null) {
+			Translate query = assetManageService.findById2(id);
+			request.setAttribute("query", query);
+		} else {
+			List<Translate> listBuy2 = assetManageService.selectAllTranslateList();
+			request.setAttribute("listBuy2", listBuy2);
+		}
 		return "daiopeixinxi";
 	}
 
@@ -288,9 +296,13 @@ public class AssetManageController {
 	 */
 	@RequestMapping("/repair/findById")
 	public String findById5(@RequestParam("id") Integer id, HttpServletRequest request) {
-		Repair query = assetManageService.findById3(id);
-
-		request.setAttribute("query", query);
+		if (id != null) {
+			Repair query = assetManageService.findById3(id);
+			request.setAttribute("query", query);
+		} else {
+			List<Repair> listBuy3 = assetManageService.selectAllRepairList();
+			request.setAttribute("listBuy3", listBuy3);
+		}
 		return "baoxiuxinxi";
 	}
 
@@ -338,9 +350,13 @@ public class AssetManageController {
 	 */
 	@RequestMapping("/scrap/findById")
 	public String findById6(@RequestParam("id") Integer id, HttpServletRequest request) {
-		Scrap query = assetManageService.findById4(id);
-
-		request.setAttribute("query", query);
+		if (id != null) {
+			Scrap query = assetManageService.findById4(id);
+			request.setAttribute("query", query);
+		} else {
+			List<Scrap> listBuy4 = assetManageService.selectAllScrapList();
+			request.setAttribute("listBuy4", listBuy4);
+		}
 		return "baofeixinxi";
 	}
 
