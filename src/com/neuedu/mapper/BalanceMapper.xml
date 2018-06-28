@@ -40,6 +40,16 @@
   <select id="selectAll" resultMap="BaseResultMap">
     select BID, BNAME, BCOUNT, PRICE, BDATE, b.CID,CNAME, DEPARTID
     from balance b,category c where b.CID=c.CID
+    order by BID
+  </select>
+  <select id="orderByBid" resultMap="BaseResultMap">
+    select BID, BNAME, BCOUNT, PRICE, BDATE, b.CID,CNAME, DEPARTID
+    from balance b,category c where b.CID=c.CID
+    order by DEPARTID
+  </select>
+  <select id="orderByDepart" resultMap="BaseResultMap">
+    select BID, BNAME, BCOUNT, PRICE, BDATE, b.CID,CNAME, DEPARTID
+    from balance b,category c where b.CID=c.CID
   </select>
   <select id="selectBalanceCatagory" resultMap="BaseResultMap">
     select b.BID, b.BNAME, b.BCOUNT, b.PRICE, b.BDATE, b.CID, b.DEPARTID,c.CID, c.CNAME

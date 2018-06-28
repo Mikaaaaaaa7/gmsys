@@ -1,5 +1,6 @@
 <%@page import="java.util.Iterator"%>
-<%@page import="com.neuedu.model.Bfjl"%>
+<%@page import="com.neuedu.model.Scrap"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List" isELIgnored="false"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -424,17 +425,18 @@ $(function(){
 				           </tr>
 				           
 				              <%
-				              	List<Bfjl> list=(List<Bfjl>)request.getAttribute("listBfjl");
-				              	Iterator<Bfjl> it=list.iterator();
+				              	List<Scrap> list=(List<Scrap>)request.getAttribute("scrapList");
+				              	SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd");
+				              	Iterator<Scrap> it=list.iterator();
 				              	while(it.hasNext()){
 				              		
-				              		Bfjl b=it.next();
+				              		Scrap b=it.next();
 				              	%>
 				           <tr>
 				                   
 				                    <td bgcolor="#FFFFFF"><%=b.getSid() %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getScount() %></td>
-				                    <td bgcolor="#FFFFFF"><%=b.getStime() %></td>
+				                    <td bgcolor="#FFFFFF"><%=format0.format(b.getStime()) %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getBid() %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getDepartid() %></td>
 				                  

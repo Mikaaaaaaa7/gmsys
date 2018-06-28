@@ -1,5 +1,6 @@
 <%@page import="java.util.Iterator"%>
-<%@page import="com.neuedu.model.Tpjl"%>
+<%@page import="com.neuedu.model.Translate"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List" isELIgnored="false"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -429,19 +430,18 @@ $(function(){
 				           </tr>
 				           
 				                <%
-				              		List<Tpjl> list=(List<Tpjl>)request.getAttribute("listTpjl");
-				              	Iterator<Tpjl> it=list.iterator();
+				              	List<Translate> list=(List<Translate>)request.getAttribute("translateList");
+				              	SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd");
+				              	Iterator<Translate> it=list.iterator();
 				              	while(it.hasNext()){
-				              	
-				              		Tpjl b=it.next();                                                       
+				              		Translate b=it.next();                                                       
 				              	%>
 				           
 				           <tr>
-				
 				                    <td bgcolor="#FFFFFF"><%=b.getTid() %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getTcount() %></td>
-				                    <td bgcolor="#FFFFFF"><%=b.getTrtime() %></td>
-				                    <td bgcolor="#FFFFFF"><%=b.getAreaid() %></td>
+				                    <td bgcolor="#FFFFFF"><%=format0.format(b.getTrtime()) %></td>
+				                    <td bgcolor="#FFFFFF"><%=b.getBid() %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getDepartid() %></td>
 				                 
 				           </tr> 

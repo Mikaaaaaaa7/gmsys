@@ -14,5 +14,6 @@ public interface BalanceMapper {
 
     int updateByPrimaryKey(Balance record);
     
-    
+    List<Balance> orderByBid();
+    List<Balance> orderByDepart();
 }

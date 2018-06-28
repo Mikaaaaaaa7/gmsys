@@ -1,5 +1,6 @@
 <%@page import="java.util.Iterator"%>
-<%@page import="com.neuedu.model.Bxjl"%>
+<%@page import="com.neuedu.model.Repair"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List" isELIgnored="false"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -420,19 +421,18 @@ $(function(){
 				             <td width="12%" height="20" align="center" bgcolor="#EEEEEE">资产编号</td>
 				            <td width="12%" height="20" align="center" bgcolor="#EEEEEE">部门编号</td>
 				           </tr>
-				           
-				           
 				                 <%
-				              		List<Bxjl> list=(List<Bxjl>)request.getAttribute("listBxjl");
-				              	Iterator<Bxjl> it=list.iterator();
+				              		List<Repair> list=(List<Repair>)request.getAttribute("repairList");
+				              	SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd");
+				              	Iterator<Repair> it=list.iterator();
 				              	while(it.hasNext()){
 				              		
-				              		Bxjl b=it.next();
+				              		Repair b=it.next();
 				              	%>
 				           <tr>
 				                    <td bgcolor="#FFFFFF"><%=b.getRepairid() %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getRcount() %></td>
-				                    <td bgcolor="#FFFFFF"><%=b.getRtime() %></td>
+				                    <td bgcolor="#FFFFFF"><%=format0.format(b.getRtime()) %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getBid() %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getDepartid() %></td>
 				                   

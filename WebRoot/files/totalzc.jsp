@@ -1,5 +1,6 @@
 <%@page import="java.util.Iterator"%>
 <%@page import="com.neuedu.model.Balance"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List" isELIgnored="false"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
@@ -430,10 +431,10 @@ $(function(){
 				           </tr>
 				           
 				           <%
-				              		List<Balance> list=(List<Balance>)request.getAttribute("listBalance");
+				              	List<Balance> list=(List<Balance>)request.getAttribute("bidList");
+				              	SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd");
 				              	Iterator<Balance> it=list.iterator();
 				              	while(it.hasNext()){
-				              	
 				              		Balance b=it.next();
 				              	%>
 				           <tr>
@@ -446,13 +447,6 @@ $(function(){
 				            <%
 				              }
 							%>
-				           
-				                 
-				                  
-				                  
-				                  
-				                
-				                  
 				                </table></td>
 				              </tr>
 				            </table></td>
@@ -522,14 +516,12 @@ $(function(){
 				
 				
 				           		<%
-				              		List<Balance> list1=(List<Balance>)request.getAttribute("listBalance");
+				              		List<Balance> list1=(List<Balance>)request.getAttribute("departList");
 				              	Iterator<Balance> it1=list.iterator();
 				              	while(it1.hasNext()){
-				              	
 				              		Balance c =it1.next();
 				              	%>
 				                  <tr>
-				                   
 				                     <td bgcolor="#FFFFFF"><%=c.getDepartid() %></td>
 				                     <td height="20" bgcolor="#FFFFFF"><%=c.getCname() %></td>
 				                     <td height="20" bgcolor="#FFFFFF"><%=c.getBcount() %></td>
