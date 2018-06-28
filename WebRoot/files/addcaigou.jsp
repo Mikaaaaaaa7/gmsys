@@ -442,7 +442,7 @@ function verification() {
 									</td>
 								</tr>
 								<tr>
-									<td align="right">产品编号:</td>
+									<td align="right">部门编号:</td>
 								    <td>
 										<select name="DEPARTID" style="width:154px">
 									    		<%

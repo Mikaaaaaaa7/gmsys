@@ -1,7 +1,8 @@
 <%@page import="java.util.Iterator"%>
-<%@page import="com.neuedu.model.BuyProuduct"%>
+<%@page import="com.neuedu.model.*"%>
 <%@page import="java.util.List" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+     <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -419,18 +420,21 @@ $(function(){
 				            <td width="11%" align="center" bgcolor="#EEEEEE">操作</td>
 				           </tr>
 				           <c:forEach items="${listBuy1}" var="c">
-				           <tr>
+				           <tr style="text-align: center;">
 								
-				                    <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="${c.bUYID}"/></td>
-				                    <td bgcolor="#FFFFFF">${c.bUYID}</td>
-				                    <td bgcolor="#FFFFFF">${c.bUYCOUNT}</td>
-				                    <td bgcolor="#FFFFFF">${c.bUYTIME}</td>
-				                    <td bgcolor="#FFFFFF">${c.pROVID}</td>
-				                    <td bgcolor="#FFFFFF">${c.dEPARTID}</td>
-				                    <td bgcolor="#FFFFFF">${c.pRODID}</td>
+				                    <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="${c.buyid}"/></td>
+				                    <td bgcolor="#FFFFFF">${c.buyid}</td>
+				                    <td bgcolor="#FFFFFF">${c.buycount}</td>
+				                    <td bgcolor="#FFFFFF"><fmt:formatDate value="${c.buytime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+				                    <td bgcolor="#FFFFFF">${c.provid}</td>
+				                    <td bgcolor="#FFFFFF">${c.prodid}</td>
+				                    <td bgcolor="#FFFFFF">${c.departid}</td>
 				
 				        
-				                    <td bgcolor="#FFFFFF"><a href="${pageContext.request.contextPath}/buy/findById.do?id=${c.bUYID}">编辑</a>&nbsp;|&nbsp;<a href="${pageContext.request.contextPath}/buy/findById2.do?id=${c.bUYID}">查看</a></td>
+				                    <td bgcolor="#FFFFFF">
+					                    <a href="${pageContext.request.contextPath}/buy/findById.do?id=${c.buyid}">编辑</a>&nbsp;|&nbsp;
+					                    <a href="${pageContext.request.contextPath}/buy/findById2.do?id=${c.buyid}">查看</a>
+				                    </td>
 				           	
 				           </tr> 
 				           
@@ -514,15 +518,18 @@ $(function(){
 				           
 				           <c:forEach items="${listBuy2}" var="c">
 				           
-				           <tr>
+				           <tr style="text-align: center;">
 				
 				                    <td bgcolor="#FFFFFF"><input type="checkbox" name="delid"/></td>
-				                    <td bgcolor="#FFFFFF">${c.tID}</td>
-				                    <td bgcolor="#FFFFFF">${c.tCOUNT}</td>
-				                    <td bgcolor="#FFFFFF">${c.tRTIME}</td>
-				                    <td bgcolor="#FFFFFF">${c.aREAID}</td>
-				                    <td bgcolor="#FFFFFF">${c.dEPARTID}</td>
-				                    <td bgcolor="#FFFFFF"><a href="updatecaigou.htm">编辑</a>&nbsp;|&nbsp;<a href="caigoudetails.html">查看</a></td>
+				                    <td bgcolor="#FFFFFF">${c.tid}</td>
+				                    <td bgcolor="#FFFFFF">${c.tcount}</td>
+				                    <td bgcolor="#FFFFFF"><fmt:formatDate value="${c.trtime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+				                    <td bgcolor="#FFFFFF">${c.bid}</td>
+				                    <td bgcolor="#FFFFFF">${c.departid}</td>
+				                    <td bgcolor="#FFFFFF">
+					                    <a href="updatecaigou.htm">编辑</a>&nbsp;|&nbsp;
+					                    <a href="caigoudetails.html">查看</a>
+				                    </td>
 				           </tr> 
 				           
 				           </c:forEach>
@@ -601,14 +608,17 @@ $(function(){
 				           
 				           <c:forEach items="${listBuy3}" var="c">
 				           
-				           <tr>
+				           <tr style="text-align: center;">
 				
 				                    <td bgcolor="#FFFFFF"><input type="checkbox" name="delid"/></td>
-				                    <td bgcolor="#FFFFFF">${c.rEPAIRID}</td>
-				                    <td bgcolor="#FFFFFF">${c.rCOUNT}</td>
-				                    <td bgcolor="#FFFFFF">${c.rTIME}</td>
-				                    <td bgcolor="#FFFFFF">${c.dEPARTID}</td>
-				                    <td bgcolor="#FFFFFF"><a href="updatecaigou.htm">编辑</a>&nbsp;|&nbsp;<a href="caigoudetails.html">查看</a></td>
+				                    <td bgcolor="#FFFFFF">${c.repairid}</td>
+				                    <td bgcolor="#FFFFFF">${c.rcount}</td>
+				                    <td bgcolor="#FFFFFF"><fmt:formatDate value="${c.rtime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+				                    <td bgcolor="#FFFFFF">${c.departid}</td>
+				                    <td bgcolor="#FFFFFF">
+					                    <a href="updatecaigou.htm">编辑</a>&nbsp;|&nbsp;
+					                    <a href="caigoudetails.html">查看</a>
+				                    </td>
 				           </tr> 
 				           </c:forEach>
 				           
@@ -686,14 +696,17 @@ $(function(){
 				           
 				           <c:forEach items="${listBuy4}" var="c">
 				           
-				           <tr>
+				           <tr style="text-align: center;">
 				
 				                    <td bgcolor="#FFFFFF"><input type="checkbox" name="delid"/></td>
-				                    <td bgcolor="#FFFFFF">${c.sID}</td>
-				                    <td bgcolor="#FFFFFF">${c.sCOUNT}</td>
-				                    <td bgcolor="#FFFFFF">${c.sTIME}</td>
-				                    <td bgcolor="#FFFFFF">${c.bID}</td>
-				                    <td bgcolor="#FFFFFF"><a href="updatecaigou.htm">编辑</a>&nbsp;|&nbsp;<a href="caigoudetails.html">查看</a></td>
+				                    <td bgcolor="#FFFFFF">${c.sid}</td>
+				                    <td bgcolor="#FFFFFF">${c.scount}</td>
+				                    <td bgcolor="#FFFFFF"><fmt:formatDate value="${c.stime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
+				                    <td bgcolor="#FFFFFF">${c.bid}</td>
+				                    <td bgcolor="#FFFFFF">
+					                    <a href="updatecaigou.htm">编辑</a>&nbsp;|&nbsp;
+					                    <a href="caigoudetails.html">查看</a>
+				                    </td>
 				           </tr> 
 				           
 				           </c:forEach>

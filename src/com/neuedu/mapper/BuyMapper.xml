@@ -27,12 +27,13 @@
     where BUYID = #{buyid,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select BUYID, BUYCOUNT, BUYTIME, PROVID, DEPARTID
-    from buy
-    where BUYID = #{buyid,jdbcType=INTEGER}
+    select BUYID, BUYCOUNT, BUYTIME, b.PROVID, DEPARTID, p.PRODID
+    from buy b,product p
+    where BUYID = #{buyid,jdbcType=INTEGER} and b.PROVID = p.PROVID
   </select>
   <select id="selectAll" resultMap="BaseResultMap">
-    select BUYID, BUYCOUNT, BUYTIME, PROVID, DEPARTID
-    from buy
+    select BUYID, BUYCOUNT, BUYTIME, b.PROVID, DEPARTID, p.PRODID
+    from buy b,product p
+    where b.PROVID = p.PROVID
   </select>
 </mapper>

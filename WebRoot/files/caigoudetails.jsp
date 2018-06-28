@@ -2,6 +2,7 @@
 <%@page import="com.neuedu.model.Buy"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.List" isELIgnored="false"%>
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
     <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
@@ -385,34 +386,34 @@ function link(){
 				  
 				  <%
 									 	Buy ag=(Buy)request.getAttribute("Buy1");
-										 
+										 SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd");
 										 
 									 %>
 				  
 				  <tr>
 				    <td width="16%" height="20" align="right" bgcolor="#FFFFFF">采购单号:</td>
-				    <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=ag.getBUYID() %></td>
+				    <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=ag.getBuyid() %></td>
 				  </tr>
 				  <tr>
 						<td width="16%" height="20" align="right" bgcolor="#FFFFFF">数量:</td>
-				    <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=ag.getBUYCOUNT() %></td>
+				    <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=ag.getBuycount() %></td>
 				  </tr>
 				  <tr>
 				    <td width="16%" height="20" align="right" bgcolor="#FFFFFF">采购时间:</td>
-				    <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=ag.getBUYTIME() %></td>
+				    <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=format0.format(ag.getBuytime()) %></td>
 				  </tr>
 				   <tr>
 				    <td width="16%" height="20" align="right" bgcolor="#FFFFFF">供应商编号:</td>
-				    <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=ag.getPROVID() %></td>
+				    <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=ag.getProvid() %></td>
 				  </tr>
 				   <tr>
 				  <td width="16%" height="20" align="right" bgcolor="#FFFFFF">产品编号：</td>
-				   <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=ag.getDEPARTID() %></td>
+				   <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=ag.getProdid() %></td>
 				   
 				  </tr>
 				  <tr>
 				     <td width="16%" height="20" align="right" bgcolor="#FFFFFF">部门编号:</td>
-				      <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=ag.getpRODID() %></td>
+				      <td width="84%" colspan="2" bgcolor="#FFFFFF"><%=ag.getDepartid() %></td>
 				   
 				  </tr>
 				  </table></td>
