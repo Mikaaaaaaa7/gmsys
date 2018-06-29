@@ -55,4 +55,12 @@
     select b.BID, b.BNAME, b.BCOUNT, b.PRICE, b.BDATE, b.CID, b.DEPARTID,c.CID, c.CNAME
     from balance b,category c where b.CID=c.CID
   </select>
+  <select id="selectByDepart" resultMap="BaseResultMap">
+    select BID, BNAME, BCOUNT, PRICE, BDATE, b.CID,CNAME, DEPARTID
+    from balance b,category c where b.CID=c.CID and b.DEPARTID=#{DEPARTID,jdbcType=INTEGER}
+  </select>
+  <select id="selectByBid" resultMap="BaseResultMap">
+    select BID, BNAME, BCOUNT, PRICE, BDATE, b.CID,CNAME, DEPARTID
+    from balance b,category c where b.CID=c.CID and b.BID=#{BID,jdbcType=INTEGER}
+  </select>
 </mapper>

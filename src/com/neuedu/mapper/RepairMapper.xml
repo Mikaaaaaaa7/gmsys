@@ -35,4 +35,9 @@
     select REPAIRID, RCOUNT, RTIME, DEPARTID, BID
     from repair
   </select>
+  <select id="selectOne" resultMap="BaseResultMap">
+    select REPAIRID, RCOUNT, RTIME, DEPARTID, BID
+    from repair
+    where REPAIRID=#{REPAIRID,jdbcType=INTEGER}
+  </select>
 </mapper>

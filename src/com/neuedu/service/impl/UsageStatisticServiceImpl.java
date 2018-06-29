@@ -28,10 +28,16 @@ public class UsageStatisticServiceImpl implements UsageStatisticService{
 	public List<Balance> getZCByBid(){
 		return balanceMapper.orderByBid();
 	}
+	public List<Balance> getOneBid(Integer bid){
+		return balanceMapper.selectByBid(bid);
+	}
 	
 	//资产统计：order by 部门编号DEPARTID
 	public List<Balance> getZCByDepart(){
 		return balanceMapper.orderByDepart();
+	}
+	public List<Balance> getOneDepart(Integer depart){
+		return balanceMapper.selectByDepart(depart);
 	}
 	
 	@Resource //注解注入
@@ -39,8 +45,8 @@ public class UsageStatisticServiceImpl implements UsageStatisticService{
 	public List<Buy> getAllBuyDetail(){
 		return BuyMapper.selectAll();
 	}
-	public Buy getOneBuyDetail(Integer buyid){
-		return BuyMapper.selectByPrimaryKey(buyid);
+	public List<Buy> getOneBuyDetail(Integer buyid){
+		return BuyMapper.selectByBuyid(buyid);
 	}
 	
 	//调配记录
@@ -49,6 +55,9 @@ public class UsageStatisticServiceImpl implements UsageStatisticService{
 	public List<Translate> getAllTranslate(){
 		return translateMapper.selectAll();
 	}
+	public List<Translate> getOneTranslate(Integer pepartid){
+		return translateMapper.selectOne(pepartid);
+	}
 	
 	@Resource //注解注入
 	private RepairMapper repairMapper;
@@ -56,11 +65,18 @@ public class UsageStatisticServiceImpl implements UsageStatisticService{
 	public List<Repair> getRepairDetail(){
 		return repairMapper.selectAll();
 	}
+	public List<Repair> getOneRepair(Integer repairid){
+		return repairMapper.selectOne(repairid);
+	}
+	
 	
 	//报废记录
 	@Resource //注解注入
 	private ScrapMapper scrapMapper;
 	public List<Scrap> getScrapDetail(){
 		return scrapMapper.selectAll();
+	}
+	public List<Scrap> getOneScrap(Integer sid){
+		return scrapMapper.selectOne(sid);
 	}
 }

@@ -11,6 +11,6 @@ public interface ScrapMapper {
     Scrap selectByPrimaryKey(Integer sid);
 
     List<Scrap> selectAll();
-
+    List<Scrap> selectOne(Integer sid);
     int updateByPrimaryKey(Scrap record);
 }

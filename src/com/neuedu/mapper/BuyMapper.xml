@@ -36,4 +36,9 @@
     from buy b,product p
     where b.PROVID = p.PROVID
   </select>
+  <select id="selectByBuyid" resultMap="BaseResultMap">
+    select BUYID, BUYCOUNT, BUYTIME, b.PROVID, DEPARTID, p.PRODID
+    from buy b,product p
+    where b.PROVID = p.PROVID and b.BUYID=#{buyid,jdbcType=INTEGER}
+  </select>
 </mapper>

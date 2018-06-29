@@ -35,4 +35,9 @@
     select SID, SCOUNT, STIME, BID, DEPARTID
     from scrap
   </select>
+  <select id="selectOne" resultMap="BaseResultMap">
+    select SID, SCOUNT, STIME, BID, DEPARTID
+    from scrap
+    where SID = #{sid,jdbcType=INTEGER}
+  </select>
 </mapper>

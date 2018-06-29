@@ -102,7 +102,7 @@ $(function(){
 	$("#chaxun").click(function() {
 		var bq= $("#text").val();
         //alert("搜索的值为："+bq);
-        $("#fom").attr("action","${pageContext.request.contextPath}/Balance/findById.do?bid="+bq);
+        $("#fom").attr("action","${pageContext.request.contextPath}/balance/findById.do?bid="+bq);
         $("#fom").submit();
     });
 });
@@ -111,7 +111,7 @@ $(function(){
 	$("#chaxun2").click(function() {
 		var bq= $("#text2").val();
         //alert("搜索的值为："+bq);
-        $("#fom").attr("action","${pageContext.request.contextPath}/Balance/findById2.do?departid="+bq);
+        $("#fom").attr("action","${pageContext.request.contextPath}/balance/findById2.do?departid="+bq);
         $("#fom").submit();
     });
 });
@@ -513,12 +513,10 @@ $(function(){
 				           <td width="12%" height="20" align="center" bgcolor="#EEEEEE">价格</td>        
 				                
 				           </tr>
-				
-				
 				           		<%
 				              		List<Balance> list1=(List<Balance>)request.getAttribute("departList");
-				              	Iterator<Balance> it1=list.iterator();
-				              	while(it1.hasNext()){
+				              		Iterator<Balance> it1=list.iterator();
+				              		while(it1.hasNext()){
 				              		Balance c =it1.next();
 				              	%>
 				                  <tr>
@@ -557,10 +555,6 @@ $(function(){
 				  </tr>
 				</table>
 				</form>
-				            
-
-
-
         </div>
 
 

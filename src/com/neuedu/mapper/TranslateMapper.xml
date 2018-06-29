@@ -35,4 +35,9 @@
     select TID, TCOUNT, TRTIME, BID, DEPARTID
     from translate
   </select>
+  <select id="selectOne" resultMap="BaseResultMap">
+    select TID, TCOUNT, TRTIME, BID, DEPARTID
+    from translate
+    where TID=#{TID,jdbcType=INTEGER}
+  </select>
 </mapper>

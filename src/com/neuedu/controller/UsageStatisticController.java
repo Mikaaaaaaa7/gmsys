@@ -30,6 +30,12 @@ public class UsageStatisticController {
 		request.setAttribute("listCgjl", buyList);
 		return "caigoujilu";
 	}
+	@RequestMapping("/cgjl/findById")
+	public String findOneBuy(@RequestParam("buyid") Integer bid,HttpServletRequest request){
+		List<Buy> b=usageStatisticService.getOneBuyDetail(bid);
+		request.setAttribute("listCgjl", b);
+		return "caigoujilu";
+	}
 	
 	//在浏览中通过URL调用这个方法进行查询资产总数:/balance/findAll.do
 	@RequestMapping("/balance/findAll")
@@ -37,7 +43,21 @@ public class UsageStatisticController {
 		List<Balance> bidList=usageStatisticService.getZCByBid();			
 		request.setAttribute("bidList", bidList);
 		List<Balance> departList=usageStatisticService.getZCByDepart();			
-		request.setAttribute("departList", departList);
+		request.setAttribute("departList", departList);		
+		return "totalzc";
+	}
+	//查询资产总数 by Bid
+	@RequestMapping("balance/findById")
+	public String showBalanceByBid(@RequestParam("bid") Integer bid,HttpServletRequest request){
+		List<Balance> b=usageStatisticService.getOneBid(bid);			
+		request.setAttribute("bidList", b);
+		return "totalzc";
+	}
+	//查询资产总数 by Departid
+	@RequestMapping("balance/findById2")
+	public String showBalanceByDepart(@RequestParam("departid") Integer departid,HttpServletRequest request){
+		List<Balance> b=usageStatisticService.getOneDepart(departid);			
+		request.setAttribute("departList", b);
 		return "totalzc";
 	}
 	
@@ -48,6 +68,13 @@ public class UsageStatisticController {
 		request.setAttribute("translateList", translateList);
 		return "tiaopeijilu";
 	}
+	@RequestMapping("/tpjl/fingById")
+	public String getOneById(@RequestParam("pepartid") Integer pepartid,HttpServletRequest request){
+		List<Translate> translateList=usageStatisticService.getOneTranslate(pepartid);			
+		request.setAttribute("translateList", translateList);
+		return "tiaopeijilu";
+	}
+	
 	
 	//在浏览中通过URL调用这个方法进行查询保修记录:/bxjl/findAll.do
 	@RequestMapping("/bxjl/findAll")
@@ -56,11 +83,23 @@ public class UsageStatisticController {
 		request.setAttribute("repairList", repairList);
 		return "baoxiujilu";
 	}
+	@RequestMapping("/bxjl/findById")
+	public String showOneRepair(@RequestParam("repairid") Integer repairid,HttpServletRequest request){
+		List<Repair> repairList=usageStatisticService.getOneRepair(repairid);			
+		request.setAttribute("repairList", repairList);
+		return "baoxiujilu";
+	}
 	
 	//在浏览中通过URL调用这个方法进行查询报废记录:/bfjl/findAll.do
 	@RequestMapping("/bfjl/findAll")
 	public String showScrap(HttpServletRequest request){
 		List<Scrap> scrapList=usageStatisticService.getScrapDetail();			
+		request.setAttribute("scrapList", scrapList);
+		return "baofeijilu";
+	}
+	@RequestMapping("/bfjl/findById")
+	public String showOneScrap(@RequestParam("sid") Integer sid,HttpServletRequest request){
+		List<Scrap> scrapList=usageStatisticService.getOneScrap(sid);			
 		request.setAttribute("scrapList", scrapList);
 		return "baofeijilu";
 	}

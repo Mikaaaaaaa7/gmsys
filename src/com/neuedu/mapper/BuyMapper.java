@@ -11,6 +11,8 @@ public interface BuyMapper {
     Buy selectByPrimaryKey(Integer buyid);
 
     List<Buy> selectAll();
+    List<Buy> selectByBuyid(Integer buyid);
 
     int updateByPrimaryKey(Buy record);
+    
 }
