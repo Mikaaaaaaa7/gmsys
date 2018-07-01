@@ -411,7 +411,7 @@ function check(){
 <%--内容 --%>
         <div class="tpl-content-wrapper">
             <form name="fom" id="fom" method="post">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
 				
 				  <tr>
 				    <td height="30">      <table width="100%" border="0" cellspacing="0" cellpadding="0">
