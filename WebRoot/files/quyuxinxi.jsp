@@ -441,7 +441,7 @@ function link(){
 				                  </tr>
 				                  
 				                  <!-- 使用jsp的标签技术显示数据，areaList是在控制器中保存数据的键名，area是一个临时的名称，它可以在循环中获取数据 -->
-				                  <c:forEach items="${areaList}" var="area">
+				                  <c:forEach items="${list}" var="area">
 				                   <tr style="text-align: center;">
 								      <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="${area.areaid}"/></td>
 				                    <td bgcolor="#FFFFFF">${area.areaid}</td>
@@ -462,9 +462,9 @@ function link(){
 				        </tr>
 				        <tr>
 				          <td height="33"><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="right-font08">
-				              <tr>
-				                <td width="50%">共 <span class="right-text09">${pager.pages }</span> 页 | 第 <span class="right-text09">${pager.page }</span> 页</td>
-				                <td width="49%" align="right">[<a href="../area/list.do?page=1" class="right-font08">首页</a> | <a href="../area/list.do?page=${pager.prePage}" class="right-font08">上一页</a> | <a href="../area/list.do?page=${pager.nextPage}" class="right-font08">下一页</a> | <a href="../area/list.do?page=${pager.pages}" class="right-font08">末页</a>] 转至：</td>
+				              <%-- <tr>
+				                <td width="50%">共 <span class="right-text09">${page.totalPageCount }</span> 页 | 第 <span class="right-text09">${page.pageNow }</span> 页</td>
+				                <td width="49%" align="right">[<a href="../area/list.do?page=1" class="right-font08">首页</a> | <a href="../area/list.do?page=${pageNow-1}" class="right-font08">上一页</a> | <a href="../area/list.do?page=${pageNow+1}" class="right-font08">下一页</a> | <a href="../area/list.do?page=${pager.pages}" class="right-font08">末页</a>] 转至：</td>
 				                <td width="1%"><table width="20" border="0" cellspacing="0" cellpadding="0">
 				                    <tr>
 				                      <td width="1%"><input name="page" type="text" class="right-textfield03" size="1" /></td>
@@ -472,7 +472,36 @@ function link(){
 				                      </td>
 				                    </tr>
 				                </table></td>
-				              </tr>
+				              </tr> --%>
+				               	<font size="2">共 ${page.totalPageCount} 页</font> <font size="2">第  
+						            ${page.pageNow} 页</font> <a href="../area/list.do?pageNow=1">首页</a>  
+						        <c:choose>  
+						            <c:when test="${page.pageNow - 1 > 0}">  
+						                <a href="../area/list.do?pageNow=${page.pageNow - 1}">上一页</a>  
+						            </c:when>  
+						            <c:when test="${page.pageNow - 1 <= 0}">  
+						                <a href="../area/list.do?pageNow=1">上一页</a>  
+						            </c:when>  
+						        </c:choose>  
+						        <c:choose>  
+						            <c:when test="${page.totalPageCount==0}">  
+						                <a href="../area/list.do?pageNow=${page.pageNow}">下一页</a>  
+						            </c:when>  
+						            <c:when test="${page.pageNow + 1 < page.totalPageCount}">  
+						                <a href="../area/list.do?pageNow=${page.pageNow + 1}">下一页</a>  
+						            </c:when>  
+						            <c:when test="${page.pageNow + 1 >= page.totalPageCount}">  
+						                <a href="../area/list.do?pageNow=${page.totalPageCount}">下一页</a>  
+						            </c:when>  
+						        </c:choose>  
+						        <c:choose>  
+						            <c:when test="${page.totalPageCount==0}">  
+						                <a href="../area/list.do?pageNow=${page.pageNow}">尾页</a>  
+						            </c:when>  
+						            <c:otherwise>  
+						                <a href="../area/list.do?pageNow=${page.totalPageCount}">尾页</a>  
+						            </c:otherwise>  
+						        </c:choose> 
 				          </table></td>
 				        </tr>
 				      </table></td>

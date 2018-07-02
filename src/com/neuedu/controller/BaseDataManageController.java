@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.ibatis.javassist.expr.NewArray;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +21,7 @@ import com.neuedu.model.Area;
 import com.neuedu.model.Balance;
 import com.neuedu.model.Category;
 import com.neuedu.model.Department;
+import com.neuedu.model.Page;
 import com.neuedu.service.BaseDataManageService;
 import com.neuedu.service.UserAccountService;
 
@@ -33,9 +35,25 @@ public class BaseDataManageController {
 	
 	//在浏览中通过URL调用这个方法进行登录:findAll.do
 	@RequestMapping("/category/findAll.do")
-	public String findAll(HttpServletRequest request){
-		List<Category> listcategory=baseDataManageService.selectAll();
-		request.setAttribute("listCategory", listcategory);
+	public String findAll(Model model,HttpServletRequest request){
+		 //获取当前页数
+        String pageNow=request.getParameter("pageNow");
+        //获取总页数
+        int totalCount=((Number)baseDataManageService.findNewContCategory()).intValue();
+        Page page=null;
+        List<Category> list=new ArrayList<Category>();
+        if (pageNow!=null) {
+            page=new Page(Integer.parseInt(pageNow), totalCount);
+            list=this.baseDataManageService.findNewsPageCategory(page.getStartPos(),page.getPageSize());
+        }else {
+            page=new Page(1, totalCount);
+            list=this.baseDataManageService.findNewsPageCategory(page.getStartPos(),page.getPageSize());
+        }
+        model.addAttribute("listCategory", list);
+        model.addAttribute("page", page);
+		
+		//List<Category> listcategory=baseDataManageService.selectAll();
+		//request.setAttribute("listCategory", listcategory);
 		
 		return "zcflxinxi";
 	}
@@ -73,7 +91,7 @@ public class BaseDataManageController {
 	}
 	//在浏览中通过URL调用这个方法进行登录:delete.do
 	@RequestMapping("/category/delete.do")
-	public String deletezcfl(@RequestParam("cid") String cid, HttpServletRequest request){
+	public String deletezcfl(@RequestParam("cid") String cid, Model model,HttpServletRequest request){
 		//baseDataManageService.deletezcfl(cid);
 		String[] sourcestrStrings=cid.split(":");
 		int[] sourceint=new int[sourcestrStrings.length];
@@ -81,18 +99,59 @@ public class BaseDataManageController {
 			sourceint[i]=Integer.parseInt(sourcestrStrings[i]);
 			baseDataManageService.deletezcfl(sourceint[i]);
 		}
-		List<Category> listcategory=baseDataManageService.selectAll();
+		/*List<Category> listcategory=baseDataManageService.selectAll();
 		request.setAttribute("listCategory", listcategory);
+		return "zcflxinxi";*/
+		//获取当前页数
+        String pageNow=request.getParameter("pageNow");
+        //获取总页数
+        int totalCount=((Number)baseDataManageService.findNewContCategory()).intValue();
+        Page page=null;
+        List<Category> list=new ArrayList<Category>();
+        if (pageNow!=null) {
+            page=new Page(Integer.parseInt(pageNow), totalCount);
+            list=this.baseDataManageService.findNewsPageCategory(page.getStartPos(),page.getPageSize());
+        }else {
+            page=new Page(1, totalCount);
+            list=this.baseDataManageService.findNewsPageCategory(page.getStartPos(),page.getPageSize());
+        }
+        model.addAttribute("listCategory", list);
+        model.addAttribute("page", page);
+		
+		//List<Category> listcategory=baseDataManageService.selectAll();
+		//request.setAttribute("listCategory", listcategory);
+		
 		return "zcflxinxi";
 	}
 	//在浏览中通过URL调用这个方法进行登录:add.do
 	@RequestMapping("/category/add.do")
-	public String addzcfl(String cname, HttpServletRequest request){
+	public String addzcfl(String cname,Model model, HttpServletRequest request){
 		Category record=new Category();
 		record.setCname(cname);
 		baseDataManageService.addzcfl(record);
-		List<Category> listcategory=baseDataManageService.selectAll();
-		request.setAttribute("listCategory", listcategory);
+		
+		//List<Category> listcategory=baseDataManageService.selectAll();
+		//request.setAttribute("listCategory", listcategory);
+		//return "zcflxinxi";
+		//获取当前页数
+        String pageNow=request.getParameter("pageNow");
+        //获取总页数
+        int totalCount=((Number)baseDataManageService.findNewContCategory()).intValue();
+        Page page=null;
+        List<Category> list=new ArrayList<Category>();
+        if (pageNow!=null) {
+            page=new Page(Integer.parseInt(pageNow), totalCount);
+            list=this.baseDataManageService.findNewsPageCategory(page.getStartPos(),page.getPageSize());
+        }else {
+            page=new Page(1, totalCount);
+            list=this.baseDataManageService.findNewsPageCategory(page.getStartPos(),page.getPageSize());
+        }
+        model.addAttribute("listCategory", list);
+        model.addAttribute("page", page);
+		
+		//List<Category> listcategory=baseDataManageService.selectAll();
+		//request.setAttribute("listCategory", listcategory);
+		
 		return "zcflxinxi";
 	}
 
@@ -185,7 +244,27 @@ public class BaseDataManageController {
 	}
 	//区域管理
 	@RequestMapping("/area/list.do")
-	public String areafindAll(HttpServletRequest request){
+	public String areafindAll(Model model,HttpServletRequest request){
+		 //获取当前页数
+        String pageNow=request.getParameter("pageNow");
+        //获取总页数
+        int totalCount=((Number)baseDataManageService.findNewCont()).intValue();
+        Page page=null;
+        List<Area> list=new ArrayList<Area>();
+        if (pageNow!=null) {
+            page=new Page(Integer.parseInt(pageNow), totalCount);
+            list=this.baseDataManageService.findNewsPage(page.getStartPos(),page.getPageSize());
+        }else {
+            page=new Page(1, totalCount);
+            list=this.baseDataManageService.findNewsPage(page.getStartPos(),page.getPageSize());
+        }
+        model.addAttribute("list", list);
+        model.addAttribute("page", page);
+        //return "news.jsp";
+        //request.setAttribute("list", list);
+        //request.setAttribute("page", page);
+		
+		
 		List<Area> listdepartment=baseDataManageService.selectAllArea();
 		request.setAttribute("areaList", listdepartment);
 		return "quyuxinxi";

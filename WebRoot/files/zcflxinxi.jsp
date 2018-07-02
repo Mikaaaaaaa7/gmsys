@@ -456,27 +456,25 @@ function check(){
 				                    <td width="11%" align="center" bgcolor="#EEEEEE">操作</td>
 				                  </tr>
 				                  
-				              	<%
-				              		List<Category> list=(List<Category>)request.getAttribute("listCategory");
+				              	<%-- <%
+				              		List<Category> list=(List<Category>)request.getAttribute("listcategory");
 				              	Iterator<Category> it=list.iterator();
 				              	while(it.hasNext()){
 				              		Category c=it.next();
 				              		
-				              		%>
-				                <%--  <c:forEach items="${listCategory}" var="c"> --%>
-								
+				              		%> --%>
+				                 <c:forEach items="${listCategory}" var="c"> 
 				                  <tr style="text-align: center;">
-				
-								            <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="<%=c.getCid()%>"/></td>
-				                    <td bgcolor="#FFFFFF"><%=c.getCid()%></td>
-									          <td height="20" bgcolor="#FFFFFF"><%=c.getCname()%></td>
+								            <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="${c.cid}"/></td>
+				                    <td bgcolor="#FFFFFF">${c.cid}</td>
+									          <td height="20" bgcolor="#FFFFFF">${c.cname}</td>
 				                    、
-									          <td bgcolor="#FFFFFF"><a href="${pageContext.request.contextPath}/category/findById.do?cid=<%=c.getCid()%>">编辑</a>&nbsp;|&nbsp;<a href="${pageContext.request.contextPath}/category/findByIdchakan.do?cid=<%=c.getCid()%>">查看</a></td>
+									          <td bgcolor="#FFFFFF"><a href="${pageContext.request.contextPath}/category/findById.do?cid=${c.cid}">编辑</a>&nbsp;|&nbsp;<a href="${pageContext.request.contextPath}/category/findByIdchakan.do?cid=${c.cid}">查看</a></td>
 				                  </tr>
-				                 <%-- </c:forEach> --%>
-								   <%
+				                  </c:forEach> 
+								  <%--  <%
 				              }
-				              	 %>
+				              	 %> --%>
 				               
 				                  
 				                </table></td>
@@ -492,7 +490,7 @@ function check(){
 				        </tr>
 				        <tr>
 				          <td height="33"><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="right-font08">
-				              <tr>
+				             <!--  <tr>
 				                <td width="50%">共 <span class="right-text09">5</span> 页 | 第 <span class="right-text09">1</span> 页</td>
 				                <td width="49%" align="right">[<a href="#" class="right-font08">首页</a> | <a href="#" class="right-font08">上一页</a> | <a href="#" class="right-font08">下一页</a> | <a href="#" class="right-font08">末页</a>] 转至：</td>
 				                <td width="1%"><table width="20" border="0" cellspacing="0" cellpadding="0">
@@ -502,7 +500,36 @@ function check(){
 				                      </td>
 				                    </tr>
 				                </table></td>
-				              </tr>
+				              </tr> -->
+				              <font size="2">共 ${page.totalPageCount} 页</font> <font size="2">第  
+						            ${page.pageNow} 页</font> <a href="../category/findAll.do?pageNow=1">首页</a>  
+						        <c:choose>  
+						            <c:when test="${page.pageNow - 1 > 0}">  
+						                <a href="../category/findAll.do?pageNow=${page.pageNow - 1}">上一页</a>  
+						            </c:when>  
+						            <c:when test="${page.pageNow - 1 <= 0}">  
+						                <a href="../category/findAll.do?pageNow=1">上一页</a>  
+						            </c:when>  
+						        </c:choose>  
+						        <c:choose>  
+						            <c:when test="${page.totalPageCount==0}">  
+						                <a href="../category/findAll.do?pageNow=${page.pageNow}">下一页</a>  
+						            </c:when>  
+						            <c:when test="${page.pageNow + 1 < page.totalPageCount}">  
+						                <a href="../category/findAll.do?pageNow=${page.pageNow + 1}">下一页</a>  
+						            </c:when>  
+						            <c:when test="${page.pageNow + 1 >= page.totalPageCount}">  
+						                <a href="../category/findAll.do?pageNow=${page.totalPageCount}">下一页</a>  
+						            </c:when>  
+						        </c:choose>  
+						        <c:choose>  
+						            <c:when test="${page.totalPageCount==0}">  
+						                <a href="../category/findAll.do?pageNow=${page.pageNow}">尾页</a>  
+						            </c:when>  
+						            <c:otherwise>  
+						                <a href="../category/findAll.do?pageNow=${page.totalPageCount}">尾页</a>  
+						            </c:otherwise>  
+						        </c:choose> 
 				          </table></td>
 				        </tr>
 				      </table></td>

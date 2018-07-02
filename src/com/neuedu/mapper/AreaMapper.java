@@ -13,4 +13,8 @@ public interface AreaMapper {
     List<Area> selectAll();
 
     int updateByPrimaryKey(Area record);
+    
+    Long findNewCont();
+    
+    List<Area> findNewsPage(int i, int j);
 }

@@ -19,11 +19,11 @@ import com.neuedu.model.Department;
 import com.neuedu.model.UserAccount;
 import com.neuedu.service.BaseDataManageService;
 
-@Service     //×¢½âserviceµÄÊµÏÖÀà
-@Transactional  //´Ë´¦²»ÔÙ½øÐÐ´´½¨SqlSessionºÍÌá½»ÊÂÎñ£¬¶¼ÒÑ½»ÓÉspringÈ¥¹ÜÀíÁË¡£
+@Service     //×¢ï¿½ï¿½serviceï¿½ï¿½Êµï¿½ï¿½ï¿½ï¿½
+@Transactional  //ï¿½Ë´ï¿½ï¿½ï¿½ï¿½Ù½ï¿½ï¿½Ð´ï¿½ï¿½ï¿½SqlSessionï¿½ï¿½ï¿½á½»ï¿½ï¿½ï¿½ñ£¬¶ï¿½ï¿½Ñ½ï¿½ï¿½ï¿½springÈ¥ï¿½ï¿½ï¿½ï¿½ï¿½Ë¡ï¿½
 public class BaseDataManageServiceImpl implements BaseDataManageService{
 
-	@Resource  //×¢½â×¢Èë
+	@Resource  //×¢ï¿½ï¿½×¢ï¿½ï¿½
 	private CategoryMapper mapper;
 	
 	@Resource
@@ -35,7 +35,7 @@ public class BaseDataManageServiceImpl implements BaseDataManageService{
 	@Resource
 	private BalanceMapper BalanceMapper;
 	
-	@Override//ÖØÐÂ½Ó¿ÚÖÐ¶¨ÒåµÄ·½·¨
+	@Override//ï¿½ï¿½ï¿½Â½Ó¿ï¿½ï¿½Ð¶ï¿½ï¿½ï¿½Ä·ï¿½ï¿½ï¿½
 	public List<Category> selectAll(){
 		return mapper.selectAll();
 	}
@@ -137,5 +137,25 @@ public class BaseDataManageServiceImpl implements BaseDataManageService{
 	public void addzc(Balance record) {
 		// TODO Auto-generated method stub
 		BalanceMapper.insert(record);
+	}
+	@Override
+	public Long findNewCont() {
+		// TODO Auto-generated method stub
+		return AreaMapper.findNewCont();
+	}
+	@Override
+	public List<Area> findNewsPage(int i, int j) {
+		// TODO Auto-generated method stub
+		return AreaMapper.findNewsPage(i, j);
+	}
+	@Override
+	public Long findNewContCategory() {
+		// TODO Auto-generated method stub
+		return mapper.findNewCont();
+	}
+	@Override
+	public List<Category> findNewsPageCategory(int i, int j) {
+		// TODO Auto-generated method stub
+		return mapper.findNewsPage(i, j);
 	}
 }

@@ -1,5 +1,6 @@
 package com.neuedu.mapper;
 
+import com.neuedu.model.Area;
 import com.neuedu.model.Category;
 import java.util.List;
 
@@ -16,4 +17,7 @@ public interface CategoryMapper {
     List<Category> selectByCnamemohu(String cname);
 
 	//void updateByPrimaryKey(Integer cid, String cname);
+    Long findNewCont();
+    
+    List<Category> findNewsPage(int i, int j);
 }

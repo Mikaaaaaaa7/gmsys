@@ -11,6 +11,12 @@ import com.neuedu.model.Department;
 public interface BaseDataManageService {
 	public void addzc(Balance record);
 	
+	public Long findNewCont();
+	public List<Area> findNewsPage(int i, int j);
+	
+	public Long findNewContCategory();
+	public List<Category> findNewsPageCategory(int i, int j);
+	
 	public List<Category> selectAll();
 	public List<Category> selectByCnamemohu(String cname);
 	public Category selectByCid(Integer cid);

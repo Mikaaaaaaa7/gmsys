@@ -32,4 +32,10 @@
     select CID, CNAME
     from category
   </select>
+  <select id="findNewsPage" resultType="Category">
+	select * from category limit #{0},#{1}
+  </select>
+  <select id="findNewCont" resultType="long">
+	select COUNT(*) from category
+  </select>
 </mapper>

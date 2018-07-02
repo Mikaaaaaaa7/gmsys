@@ -31,4 +31,10 @@
     select AREAID, AREANAME, RELATIVE
     from area
   </select>
+  <select id="findNewsPage" resultType="Area">
+	select * from area limit #{0},#{1}
+  </select>
+  <select id="findNewCont" resultType="long">
+	select COUNT(*) from area
+  </select>
 </mapper>
