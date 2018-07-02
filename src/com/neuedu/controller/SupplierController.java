@@ -175,6 +175,13 @@ public class SupplierController {
 		return "productxinxi";
 	}
 
+	/**
+	 * 删除产品
+	 * 
+	 * @param buyidString
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping("/product/delete")
 	public String delete2(@RequestParam("number") String buyidString, HttpServletRequest request) {
 		String[] sourcestrStrings = buyidString.split("-");
@@ -186,5 +193,19 @@ public class SupplierController {
 		List<Product> listProduct = supplierService.selectAll2();
 		request.setAttribute("listProduct", listProduct);
 		return "productxinxi";
+	}
+
+	/**
+	 * 根据id获取产品信息，跳转到产品详情页
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/product/findProduct")
+	public String findProductById1(@RequestParam("id") Integer id, HttpServletRequest request) {
+		Product query = supplierService.findById2(id);
+		request.setAttribute("listProduct", query);
+		return "productDetail";
 	}
 }

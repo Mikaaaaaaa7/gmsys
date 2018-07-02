@@ -1,34 +1,18 @@
-<%@page import="com.neuedu.model.Scrap"%>
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<%@page import="java.util.Iterator"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@page import="com.neuedu.model.*"%>
+<%@page import="java.util.List" isELIgnored="false"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
+    <%@ taglib uri="http://java.sun.com/jstl/core_rt" prefix="c"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Amaze UI Admin index Examples</title>
-    <meta name="description" content="这是一个 index 页面">
-    <meta name="keywords" content="index">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
-    <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/assets/i/favicon.png">
-    <link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath}/assets/i/app-icon72x72@2x.png">
-    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/amazeui.min.css" />
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css">
-    <script src="${pageContext.request.contextPath}/assets/js/echarts.min.js"></script>
-	<script src="${pageContext.request.contextPath}/js/jquery-1.11.3.js"></script>
-    
-    <style type="text/css">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<title>集团化资产管理系统 by www.mycodes.net</title>
+<style type="text/css">
 <!--
 body {
 	margin-left: 0px;
@@ -61,8 +45,15 @@ body {
 }
 html { overflow-x: auto; overflow-y: auto; border:0;} 
 -->
+.atten {font-size:12px;font-weight:normal;color:#F00;}
 </style>
-
+<link rel="icon" type="image/png" href="assets/i/favicon.png">
+    <link rel="apple-touch-icon-precomposed" href="${pageContext.request.contextPath}/assets/i/app-icon72x72@2x.png">
+    <meta name="apple-mobile-web-app-title" content="Amaze UI" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/amazeui.min.css" />
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/admin.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/app.css">
+    <script src="${pageContext.request.contextPath}/assets/js/echarts.min.js"></script>
 <link href="../css/css.css" rel="stylesheet" type="text/css" />
 <script type="text/JavaScript">
 
@@ -93,33 +84,24 @@ function unselectAll(){
 }
 
 function link(){
-    document.getElementById("fom").action="${pageContext.request.contextPath}/scrap/toAddScrap.do";
+    document.getElementById("fom").action="${pageContext.request.contextPath}/files/addcaigou.jsp";
    document.getElementById("fom").submit();
 }
+function tishi()
+{
+  var a=confirm('数据库中保存有该人员基本信息，您可以修改或保留该信息。');
+  if(a!=true)return false;
+  window.open("冲突页.htm","","depended=0,alwaysRaised=1,width=800,height=400,location=0,menubar=0,resizable=0,scrollbars=0,status=0,toolbar=0");
+}
 
-$(function () {
-	
-	$("#delBtn").click(function() {
-		bqstring = $("input:checkbox[name='delid']:checked").map(function(index,elem) {
-            return $(elem).val();
-        }).get().join('-');
-        //alert("选中的checkbox的值为："+bqstring);
-        $("#fom").attr("action","${pageContext.request.contextPath}/scrap/delete.do?number="+bqstring);
-        $("#fom").submit();
-    });
-	$("#chaxun").click(function() {
-		var bq= $("#text").val();
-        //alert("搜索的值为："+bq);
-        $("#fom").attr("action","${pageContext.request.contextPath}/scrap/findById.do?id="+bq);
-        $("#fom").submit();
-    });
-})
-
+function check()
+{
+document.getElementById("aa").style.display="";
+}
 </SCRIPT>
-<body data-type="index">
 
-
-    <header class="am-topbar am-topbar-inverse admin-header">
+<body  class="ContentBody" data-type="index">
+<header class="am-topbar am-topbar-inverse admin-header">
         <div class="am-topbar-brand">
             <a href="javascript:;" class="tpl-logo" style="margin-top: 30px;">
                 <img src="${pageContext.request.contextPath}/assets/img/logo.png" alt="">
@@ -291,7 +273,7 @@ $(function () {
                             <span>资产管理</span>
                             <i class="am-icon-angle-right tpl-left-nav-more-ico am-fr am-margin-right"></i>
                         </a>
-    			<ul class="tpl-left-nav-sub-menu" style="display:block">
+    					<ul class="tpl-left-nav-sub-menu" style="display:block">
                             <li>
                                 <a href="${pageContext.request.contextPath}/buy/findAll.do">
                                     <i class="am-icon-angle-right"></i>
@@ -302,7 +284,7 @@ $(function () {
                                     <i class="am-icon-angle-right"></i>
                                     <span>盘点管理</span>
                                     <i class="tpl-left-nav-content tpl-badge-success"></i>
-                                <a href="${pageContext.request.contextPath}/buyProuduct/findAll2.do">
+                                <a href="${pageContext.request.contextPath}/buyProuduct/findAll2.do" class="active">
                                      <i class="am-icon-angle-right"></i>
                                         <span>跨部门调配管理</span>
                                      <i class="tpl-left-nav-content tpl-badge-primary"></i>
@@ -310,7 +292,7 @@ $(function () {
                                      <i class="am-icon-angle-right"></i>
                                      <span>报修管理</span>
                                 </a>
-								<a href="${pageContext.request.contextPath}/buyProuduct/findAll4.do" class="active">
+								<a href="${pageContext.request.contextPath}/buyProuduct/findAll4.do">
                                      <i class="am-icon-angle-right"></i>
                                      <span>报废管理</span>
                                 </a>
@@ -389,133 +371,131 @@ $(function () {
 <%--内容 --%>
         <div class="tpl-content-wrapper">
             
-            <form name="fom" id="fom" method="post">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0">
-				
+            <form action="${pageContext.request.contextPath}/translate/update.do" method="post"  name="form" >
+				<div class="MainDiv">
+				<table width="99%" border="0" cellpadding="0" cellspacing="0" class="CContent">
 				  <tr>
-				    <td height="30"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-				        <tr>
-				          <td height="62" background="../images/nav04.gif">
-				            
-						   <table width="98%" border="0" align="center" cellpadding="0" cellspacing="0">
-						    <tr>
-							  <td width="24"><img src="../images/ico07.gif" width="20" height="18" /></td>
-							  <td width="519"><label>报废编号:
-							      <input name="text" type="text" id="text" nam="gongs" />
-							  </label>
-							   
-							    <input name="Submit" type="button" id="chaxun" class="right-button02" value="查询" /></td>
-							   <td width="679" align="left">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </td>	
-						    </tr>
-				          </table></td>
-				        </tr>
-				    </table></td></tr>
-				  <tr>
-				    <td><table id="subtree1" style="DISPLAY: " width="100%" border="0" cellspacing="0" cellpadding="0">
-				        <tr>
-				          <td><table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
-				          	 <tr>
-				               <td height="20"><span class="newfont07">选择：<a href="#" class="right-font08" onclick="selectAll();">全选</a>-<a href="#" class="right-font08" onclick="unselectAll();">反选</a></span>
-						           <input name="Submit" type="button" id="delBtn" class="right-button08" value="删除所选报修信息" /> 
-				               <input name="Submit" type="button" class="right-button08" value="添加报修信息" onclick="link();" />
-						           &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-					              </td>
-				          </tr>
-				              <tr>
-				                <td height="40" class="font42"><table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
-				
-									                  <tr>
-				                    <td height="20" colspan="14" align="center" bgcolor="#EEEEEE"class="tablestyle_title"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;报废详细列表 &nbsp;</td>
-				                    </tr>
-				                 
-				            <tr>
-				            <td width="8%" align="center" bgcolor="#EEEEEE">选择</td>
-				            <td width="12%" height="20" align="center" bgcolor="#EEEEEE">报废编号</td>
-				            <td width="12%" height="20" align="center" bgcolor="#EEEEEE">报废数量</td>
-				            <td width="12%" height="20" align="center" bgcolor="#EEEEEE">报废时间</td>
-				             <td width="12%" height="20" align="center" bgcolor="#EEEEEE">资产编号</td>
-				            <td width="12%" height="20" align="center" bgcolor="#EEEEEE">部门编号</td>
-				
-				            <td width="11%" align="center" bgcolor="#EEEEEE">操作</td>
-				           </tr>
-				           
-				           <%
-					           if(request.getAttribute("query")==null)
-					           {
-				           %>
-				           <c:forEach items="${listBuy4}" var="c">
-				           
-				           <tr style="text-align: center;">
-				
-				                    <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="${c.sid }"/></td>
-				                    <td bgcolor="#FFFFFF">${c.sid }</td>
-				                    <td bgcolor="#FFFFFF">${c.scount }</td>
-				                    <td bgcolor="#FFFFFF"><fmt:formatDate value="${c.stime}" pattern="yyyy-MM-dd HH:mm:ss" /></td>
-				                    <td bgcolor="#FFFFFF">${c.bid }</td>
-				                    <td bgcolor="#FFFFFF">${c.departid }</td>
-				                    <td bgcolor="#FFFFFF">
-					                    <a href="${pageContext.request.contextPath }/scrap/toScrapUpdate.do?id=${c.sid }">编辑</a>&nbsp;|&nbsp;
-					                    <a href="${pageContext.request.contextPath }/scrap/scrapDetail.do?id=${c.sid }">查看</a>
-				                    </td>
-				           </tr> 
-				           </c:forEach>
-				           <%
-				           	} else { 
-				           		Scrap ag=(Scrap)request.getAttribute("query");
-			           			SimpleDateFormat format0 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-				           	%>
-				           
-				           <tr style="text-align: center;">
-				
-				                    <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="<%=ag.getSid() %>"/></td>
-				                    <td bgcolor="#FFFFFF"><%=ag.getSid() %></td>
-				                    <td bgcolor="#FFFFFF"><%=ag.getScount() %></td>
-				                    <td bgcolor="#FFFFFF"><%=format0.format(ag.getStime()) %></td>
-				                    <td bgcolor="#FFFFFF"><%=ag.getBid() %></td>
-				                    <td bgcolor="#FFFFFF"><%=ag.getDepartid() %></td>
-				                    <td bgcolor="#FFFFFF">
-					                    <a href="${pageContext.request.contextPath }/scrap/toScrapUpdate.do?id=<%=ag.getSid() %>">编辑</a>&nbsp;|&nbsp;
-					                    <a href="${pageContext.request.contextPath }/scrap/scrapDetail.do?id=<%=ag.getSid() %>">查看</a>
-				                    </td>
-				           </tr> 
-				           	
-				           <%} %>
-				           
-				            </table></td>
-				        </tr>
-				      </table>
-				
-				            </table></td>
-				        </tr>
-				      </table>
-				
-				      
-				      </table>
-				      <table width="95%" border="0" align="center" cellpadding="0" cellspacing="0">
-				        <tr>
-				          <td height="6"><img src="../images/spacer.gif" width="1" height="1" /></td>
-				        </tr>
-				        <tr>
-				          <td height="33"><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="right-font08">
-				              <tr>
-				                <td width="50%">共 <span class="right-text09">5</span> 页 | 第 <span class="right-text09">1</span> 页</td>
-				                <td width="49%" align="right">[<a href="#" class="right-font08">首页</a> | <a href="#" class="right-font08">上一页</a> | <a href="#" class="right-font08">下一页</a> | <a href="#" class="right-font08">末页</a>] 转至：</td>
-				                <td width="1%"><table width="20" border="0" cellspacing="0" cellpadding="0">
-				                    <tr>
-				                      <td width="1%"><input name="textfield3" type="text" class="right-textfield03" size="1" /></td>
-				                      <td width="87%"><input name="Submit23222" type="submit" class="right-button06" value=" " />
-				                      </td>
-				                    </tr>
-				                </table></td>
-				              </tr>
-				          </table></td>
-				        </tr>
-				      </table></td>
+				      <th class="tablestyle_title" >调配单基本信息修改</th>
 				  </tr>
-				</table>
+				  <tr>
+				    <td class="CPanel">
+						
+						<table border="0" cellpadding="0" cellspacing="0" style="width:100%">
+						<tr><td align="left">
+						<!-- <input type="button" name="Submit" value="保存" class="button" onclick="alert('保存成功！');"/>　 -->
+							
+							<input type="button" name="Submit2" value="返回" class="button" onclick="window.history.go(-1);"/>
+						</td></tr>
+								<TR>
+							<TD width="100%">
+								<fieldset style="height:100%;">
+								<legend>调配单信息</legend>
+									  <table border="0" cellpadding="2" cellspacing="1" style="width:100%">
+									 
+									 
+									 <%
+									 	Translate ag=(Translate)request.getAttribute("translate");
+										SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+										 
+									 %>
+									 
+									  <tr>
+									  <td nowrap align="right" width="15%">调配单号:</td>
+									    <td width="35%"><input name='TID' type="text" class="text" style="width:154px" value="<%=ag.getTid() %>"  readonly="readonly" />
+								        <span class="red">*</span></td>
+									    <td nowrap align="right" width="15%">调配数量:</td>
+									    <td width="35%"><input name='TCOUNT' type="text" class="text" style="width:154px" value="<%=ag.getTcount() %>" />
+									  </tr>
+									   <tr>
+									  <td nowrap align="right" width="15%">调配时间:</td>
+									    <td width="35%"><input name='TRTIME' type="text" class="text" style="width:154px" value="<%=format.format(ag.getTrtime()) %>" />
+								      
+									    <td nowrap align="right" width="15%">资产编号:</td>
+									    <td width="35%">
+									    
+									    <select name="BID" style="width:154px">
+									    		<%
+										    		List<Balance> list=(List<Balance>)request.getAttribute("balanceList");
+									              	Iterator<Balance> it=list.iterator();
+									              	while(it.hasNext()){
+									              	
+									              		Balance c=it.next();
+									    		%>
+									    		<%
+									    			if(c.getBid()==ag.getBid())
+									    			{
+									    		%>
+											   	<option value ="<%=c.getBid()%>" selected><%=c.getBid()%></option>
+											   	<%}else{ %>
+											   	<option value ="<%=c.getBid()%>"><%=c.getBid()%></option>
+											  <%} }%>
+											</select>
+									  </tr>
+									   <tr>
+									  <td nowrap align="right" width="15%">部门编号:</td>
+									    <td width="35%">
+								       		<select name="DEPARTID" style="width:154px">
+									    		<%
+										    		List<Department> list1=(List<Department>)request.getAttribute("departmentList");
+									              	Iterator<Department> it1=list1.iterator();
+									              	while(it1.hasNext()){
+									              	
+									              		Department d=it1.next();
+									    		%>
+													<%
+														if(d.getDepartid()==ag.getDepartid())
+											    			{
+													%>
+													<option value ="<%=d.getDepartid()%>" selected><%=d.getDepartid()%></option>
+											   	<%}else{ %>
+											   	<option value ="<%=d.getDepartid()%>"><%=d.getDepartid()%></option>
+											  <%} }%>
+											</select>
+									    
+									    	
+									    	
+									  </tr>
+									
+									  </table>
+							  <br />
+								</fieldset>			</TD>
+							
+						</TR>
+						
+				
+						
+						
+						
+						</TABLE>
+					
+					
+					 </td>
+				  </tr>
+				  
+				  
+						
+						
+						
+						<TR>
+							<TD colspan="2" align="center" height="50px">
+							<input type="submit" name="Submit" value="保存" class="button" onclick="alert('保存成功！');"/>　
+							
+							<input type="button" name="Submit2" value="返回" class="button" onclick="window.history.go(-1);"/></TD>
+						</TR>
+						</TABLE>
+					
+					
+					 </td>
+				  </tr>
+				  
+				  
+				  
+				  </table>
+				
+				</div>
 				</form>
 
-
+			
 
         </div>
 
@@ -525,5 +505,4 @@ $(function () {
     <script src="${pageContext.request.contextPath}/assets/js/iscroll.js"></script>
     <script src="${pageContext.request.contextPath}/assets/js/app.js"></script>
 </body>
-
 </html>

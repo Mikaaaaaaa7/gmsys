@@ -460,7 +460,7 @@ $(function () {
 				                    
 							         <td bgcolor="#FFFFFF">
 								         <a href="addproduct.htm">编辑</a>&nbsp;|&nbsp;
-								         <a href="productdetails.html">查看</a>
+								         <a href="${pageContext.request.contextPath }/product/findProduct.do?id=<%=v.getProdid() %>">查看</a>
 							         </td> 
 				                  </tr>
 				                  <%
@@ -479,7 +479,7 @@ $(function () {
 					                    
 								         <td bgcolor="#FFFFFF">
 									         <a href="addproduct.htm">编辑</a>&nbsp;|&nbsp;
-									         <a href="productdetails.html">查看</a>
+									         <a href="${pageContext.request.contextPath }/product/findProduct.do?id=<%=ag.getProdid() %>">查看</a>
 								         </td> 
 				                  	</tr>
 				                   <%} %>

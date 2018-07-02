@@ -7,15 +7,19 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.neuedu.mapper.BalanceMapper;
 import com.neuedu.mapper.BuyMapper;
 import com.neuedu.mapper.DepartmentMapper;
 import com.neuedu.mapper.ProductMapper;
+import com.neuedu.mapper.ProviderMapper;
 import com.neuedu.mapper.RepairMapper;
 import com.neuedu.mapper.ScrapMapper;
 import com.neuedu.mapper.TranslateMapper;
+import com.neuedu.model.Balance;
 import com.neuedu.model.Buy;
 import com.neuedu.model.Department;
 import com.neuedu.model.Product;
+import com.neuedu.model.Provider;
 import com.neuedu.model.Repair;
 import com.neuedu.model.Scrap;
 import com.neuedu.model.Translate;
@@ -37,6 +41,10 @@ public class AssetManageServiceImpl implements AssetManageService {
 	private RepairMapper repairManager;
 	@Resource
 	private ScrapMapper scrapMapper;
+	@Resource
+	private BalanceMapper balanceMapper;
+	@Resource
+	private ProviderMapper providerMapper;
 
 	@Override
 	public List<Buy> selectAll() {
@@ -103,6 +111,28 @@ public class AssetManageServiceImpl implements AssetManageService {
 	}
 
 	@Override
+	public void updateTranslate(Translate translate) {
+		// TODO Auto-generated method stub
+		translateMapper.updateByPrimaryKey(translate);
+	}
+
+	@Override
+	public void addTranslate(Translate translate) {
+		// TODO Auto-generated method stub
+		translateMapper.insert(translate);
+		Integer bid = translate.getBid();
+		Balance balance = balanceMapper.selectByPrimaryKey(bid);
+		balance.setBcount(balance.getBcount() - translate.getTcount());
+		balanceMapper.updateByPrimaryKey(balance);
+	}
+
+	@Override
+	public Balance findBalanceById(Integer bid) {
+		// TODO Auto-generated method stub
+		return balanceMapper.selectByPrimaryKey(bid);
+	}
+
+	@Override
 	public List<Repair> selectAllRepairList() {
 		// TODO Auto-generated method stub
 		return repairManager.selectAll();
@@ -121,6 +151,18 @@ public class AssetManageServiceImpl implements AssetManageService {
 	}
 
 	@Override
+	public void addRepair(Repair repair) {
+		// TODO Auto-generated method stub
+		repairManager.insert(repair);
+	}
+
+	@Override
+	public void updateRepair(Repair repair) {
+		// TODO Auto-generated method stub
+		repairManager.updateByPrimaryKey(repair);
+	}
+
+	@Override
 	public List<Scrap> selectAllScrapList() {
 		// TODO Auto-generated method stub
 		return scrapMapper.selectAll();
@@ -136,6 +178,30 @@ public class AssetManageServiceImpl implements AssetManageService {
 	public void deleteById4(Integer rid) {
 		// TODO Auto-generated method stub
 		scrapMapper.deleteByPrimaryKey(rid);
+	}
+
+	@Override
+	public void addScrap(Scrap scrap) {
+		// TODO Auto-generated method stub
+		scrapMapper.insert(scrap);
+	}
+
+	@Override
+	public void updateScrap(Scrap scrap) {
+		// TODO Auto-generated method stub
+		scrapMapper.updateByPrimaryKey(scrap);
+	}
+
+	@Override
+	public List<Balance> getBalanceList() {
+		// TODO Auto-generated method stub
+		return balanceMapper.selectAll();
+	}
+
+	@Override
+	public List<Provider> selectAllProviderList() {
+		// TODO Auto-generated method stub
+		return providerMapper.selectAll();
 	}
 
 }

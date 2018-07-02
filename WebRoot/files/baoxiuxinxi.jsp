@@ -92,7 +92,7 @@ function unselectAll(){
 }
 
 function link(){
-    document.getElementById("fom").action="addbaoxiu.htm";
+    document.getElementById("fom").action="${pageContext.request.contextPath}/repair/toAddRepair.do";
    document.getElementById("fom").submit();
 }
 
@@ -455,8 +455,8 @@ $(function () {
 				                    <td bgcolor="#FFFFFF">${c.departid }</td>
 				                    <td bgcolor="#FFFFFF">${c.bid }</td>
 				                    <td bgcolor="#FFFFFF">
-					                    <a href="updatebaoxiu.html">编辑</a>&nbsp;|&nbsp;
-					                    <a href="baoxiudetails.html">查看</a>
+					                    <a href="${pageContext.request.contextPath}/repair/toRepairUpdate.do?id=${c.repairid }">编辑</a>&nbsp;|&nbsp;
+					                    <a href="${pageContext.request.contextPath}/repair/repairDetail.do?id=${c.repairid }">查看</a>
 				                    </td>
 				           </tr> 
 				           
@@ -476,8 +476,8 @@ $(function () {
 				                    <td bgcolor="#FFFFFF"><%=ag.getDepartid() %></td>
 				                    <td bgcolor="#FFFFFF"><%=ag.getBid() %></td>
 				                    <td bgcolor="#FFFFFF">
-					                    <a href="updatebaoxiu.html">编辑</a>&nbsp;|&nbsp;
-					                    <a href="baoxiudetails.html">查看</a>
+					                    <a href="${pageContext.request.contextPath}/repair/toRepairUpdate.do?id=<%=ag.getRepairid() %>">编辑</a>&nbsp;|&nbsp;
+					                    <a href="${pageContext.request.contextPath}/repair/repairDetail.do?id=<%=ag.getRepairid() %>">查看</a>
 				                    </td>
 				           </tr> 
 				           	

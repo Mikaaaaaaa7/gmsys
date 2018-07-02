@@ -2,9 +2,11 @@ package com.neuedu.service;
 
 import java.util.List;
 
+import com.neuedu.model.Balance;
 import com.neuedu.model.Buy;
 import com.neuedu.model.Department;
 import com.neuedu.model.Product;
+import com.neuedu.model.Provider;
 import com.neuedu.model.Repair;
 import com.neuedu.model.Scrap;
 import com.neuedu.model.Translate;
@@ -91,6 +93,28 @@ public interface AssetManageService {
 	public void deleteById2(Integer tid);
 
 	/**
+	 * 更新调配记录
+	 * 
+	 * @param translate
+	 */
+	public void updateTranslate(Translate translate);
+
+	/**
+	 * 添加调配记录
+	 * 
+	 * @param translate
+	 */
+	public void addTranslate(Translate translate);
+
+	/**
+	 * 根据id查询资产记录
+	 * 
+	 * @param BID
+	 * @return
+	 */
+	public Balance findBalanceById(Integer bid);
+
+	/**
 	 * 获取报修列表
 	 * 
 	 * @return
@@ -113,6 +137,20 @@ public interface AssetManageService {
 	public void deleteById3(Integer rid);
 
 	/**
+	 * 添加报修记录
+	 * 
+	 * @param repair
+	 */
+	public void addRepair(Repair repair);
+
+	/**
+	 * 更新报修记录
+	 * 
+	 * @param repair
+	 */
+	public void updateRepair(Repair repair);
+
+	/**
 	 * 获取报废列表
 	 * 
 	 * @return
@@ -133,4 +171,32 @@ public interface AssetManageService {
 	 * @param tid
 	 */
 	public void deleteById4(Integer sid);
+
+	/**
+	 * 添加报废记录
+	 * 
+	 * @param scrap
+	 */
+	public void addScrap(Scrap scrap);
+
+	/**
+	 * 更新报废记录
+	 * 
+	 * @param scrap
+	 */
+	public void updateScrap(Scrap scrap);
+
+	/**
+	 * 获取资产列表
+	 * 
+	 * @return
+	 */
+	public List<Balance> getBalanceList();
+
+	/**
+	 * 获取供应商列表
+	 * 
+	 * @return
+	 */
+	public List<Provider> selectAllProviderList();
 }

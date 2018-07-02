@@ -2,18 +2,24 @@ package com.neuedu.controller;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.neuedu.model.Balance;
 import com.neuedu.model.Buy;
 import com.neuedu.model.Department;
 import com.neuedu.model.Product;
+import com.neuedu.model.Provider;
 import com.neuedu.model.Repair;
 import com.neuedu.model.Scrap;
 import com.neuedu.model.Translate;
@@ -89,7 +95,8 @@ public class AssetManageController {
 	 */
 	@RequestMapping("/buy/findAll2")
 	public String findAll2(HttpServletRequest request) {
-		List<Product> Buy2 = assetManageService.selectAllProductList();
+		List<Provider> Buy2 = assetManageService.selectAllProviderList();
+
 		List<Department> Buy3 = assetManageService.selectAllDepartmentList();
 
 		request.setAttribute("Buy2", Buy2);
@@ -273,6 +280,132 @@ public class AssetManageController {
 	}
 
 	/**
+	 * 跳转到添加调配页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/translate/toAddTranslatePage")
+	public String toAddTranslatePage(HttpServletRequest request) {
+		List<Balance> balanceList = assetManageService.getBalanceList();
+		List<Department> Buy3 = assetManageService.selectAllDepartmentList();
+
+		request.setAttribute("balance", balanceList);
+		request.setAttribute("Buy3", Buy3);
+		return "addtiaopei";
+	}
+
+	/**
+	 * 根据id获取资产计数
+	 * 
+	 * @param bid
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping("/buy/checkBalance")
+	public void checkBalance(@RequestParam("id") Integer bid, HttpServletResponse response) throws Exception {
+		Integer bCount = 0;
+		Balance balance = assetManageService.findBalanceById(bid);
+		bCount = ((Number) balance.getBcount()).intValue();
+		Map<String, Integer> returnMap = new HashMap<String, Integer>();
+		returnMap.put("count", bCount);
+		ObjectMapper objectMapper = new ObjectMapper();
+		String str = objectMapper.writeValueAsString(returnMap);
+		response.getWriter().write(str);
+	}
+
+	/**
+	 * 添加调配记录
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/translate/addTranslate")
+	public String addTranslate(@RequestParam("TCOUNT") Double TCOUNT, @RequestParam("TRTIME") String TRTIME,
+			@RequestParam("BID") Integer BID, @RequestParam("DEPARTID") Integer DEPARTID, HttpServletRequest request) {
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Translate translate = new Translate();
+			translate.setTrtime(format.parse(TRTIME));
+			translate.setTcount(TCOUNT);
+			translate.setDepartid(DEPARTID);
+			translate.setBid(BID);
+			assetManageService.addTranslate(translate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<Translate> listBuy2 = assetManageService.selectAllTranslateList();
+		request.setAttribute("listBuy2", listBuy2);
+		return "daiopeixinxi";
+	}
+
+	/**
+	 * 根据id查询调配记录,并跳转到详情页
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/translate/translateDetail")
+	public String toTranslateDetail(@RequestParam("id") Integer id, HttpServletRequest request) {
+		Translate query = assetManageService.findById2(id);
+		request.setAttribute("translate", query);
+		return "diaopeidetails";
+	}
+
+	/**
+	 * 根据id查询调配记录,并跳转到编辑页
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/translate/toTranslateUpdate")
+	public String toTranslateUpdate(@RequestParam("id") Integer id, HttpServletRequest request) {
+		Translate query = assetManageService.findById2(id);
+		List<Balance> balances = assetManageService.getBalanceList();
+		List<Department> departments = assetManageService.selectAllDepartmentList();
+		request.setAttribute("translate", query);
+		request.setAttribute("balanceList", balances);
+		request.setAttribute("departmentList", departments);
+		return "updatediaopei";
+	}
+
+	/**
+	 * 更新调度记录
+	 * 
+	 * @param TID
+	 * @param TCOUNT
+	 * @param TRTIME
+	 * @param BID
+	 * @param DEPARTID
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/translate/update")
+	public String updateTranslate(@RequestParam("TID") Integer TID, @RequestParam("TCOUNT") Double TCOUNT,
+			@RequestParam("TRTIME") String TRTIME, @RequestParam("BID") Integer BID,
+			@RequestParam("DEPARTID") Integer DEPARTID, HttpServletRequest request) {
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Translate translate = new Translate();
+			translate.setTid(TID);
+			translate.setTrtime(format.parse(TRTIME));
+			translate.setTcount(TCOUNT);
+			translate.setDepartid(DEPARTID);
+			translate.setBid(BID);
+			assetManageService.updateTranslate(translate);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		List<Translate> listBuy2 = assetManageService.selectAllTranslateList();
+		request.setAttribute("listBuy2", listBuy2);
+		return "daiopeixinxi";
+	}
+
+	/**
 	 * 获取报修列表
 	 * 
 	 * @param request
@@ -327,6 +460,113 @@ public class AssetManageController {
 	}
 
 	/**
+	 * 根据id查询报修记录,并跳转到详情页
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/repair/repairDetail")
+	public String toRepairDetail(@RequestParam("id") Integer id, HttpServletRequest request) {
+		Repair query = assetManageService.findById3(id);
+		request.setAttribute("query", query);
+		return "baoxiudetails";
+	}
+
+	/**
+	 * 跳转到新增报修页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/repair/toAddRepair")
+	public String toAddRepairPage(HttpServletRequest request) {
+		List<Balance> balanceList = assetManageService.getBalanceList();
+		List<Department> departmentList = assetManageService.selectAllDepartmentList();
+
+		request.setAttribute("balanceList", balanceList);
+		request.setAttribute("departmentList", departmentList);
+		return "addbaoxiu";
+	}
+
+	/**
+	 * 添加报修记录
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/repair/addRepair")
+	public String addRepair(@RequestParam("RCOUNT") Double RCOUNT, @RequestParam("RTIME") String RTIME,
+			@RequestParam("BID") Integer BID, @RequestParam("DEPARTID") Integer DEPARTID, HttpServletRequest request) {
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Repair repair = new Repair();
+			repair.setRtime(format.parse(RTIME));
+			repair.setRcount(RCOUNT);
+			repair.setDepartid(DEPARTID);
+			repair.setBid(BID);
+			assetManageService.addRepair(repair);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<Repair> listBuy3 = assetManageService.selectAllRepairList();
+		request.setAttribute("listBuy3", listBuy3);
+		return "baoxiuxinxi";
+	}
+
+	/**
+	 * 根据id查询报修记录,并跳转到编辑页
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/repair/toRepairUpdate")
+	public String toRepairUpdate(@RequestParam("id") Integer id, HttpServletRequest request) {
+		Repair query = assetManageService.findById3(id);
+		List<Balance> balances = assetManageService.getBalanceList();
+		List<Department> departments = assetManageService.selectAllDepartmentList();
+		request.setAttribute("query", query);
+		request.setAttribute("balanceList", balances);
+		request.setAttribute("departmentList", departments);
+		return "updatebaoxiu";
+	}
+
+	/**
+	 * 更新报修记录
+	 * 
+	 * @param TID
+	 * @param TCOUNT
+	 * @param TRTIME
+	 * @param BID
+	 * @param DEPARTID
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/repair/update")
+	public String updateRepair(@RequestParam("REPAIRID") Integer REPAIRID, @RequestParam("RCOUNT") Double RCOUNT,
+			@RequestParam("RTIME") String RTIME, @RequestParam("BID") Integer BID,
+			@RequestParam("DEPARTID") Integer DEPARTID, HttpServletRequest request) {
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Repair repair = new Repair();
+			repair.setRepairid(REPAIRID);
+			repair.setRtime(format.parse(RTIME));
+			repair.setRcount(RCOUNT);
+			repair.setDepartid(DEPARTID);
+			repair.setBid(BID);
+			assetManageService.updateRepair(repair);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		List<Repair> listBuy3 = assetManageService.selectAllRepairList();
+		request.setAttribute("listBuy3", listBuy3);
+		return "baoxiuxinxi";
+	}
+
+	/**
 	 * 获取报废列表
 	 * 
 	 * @param request
@@ -375,6 +615,113 @@ public class AssetManageController {
 			sourceint[i] = Integer.parseInt(sourcestrStrings[i]);
 			assetManageService.deleteById4(sourceint[i]);
 		}
+		List<Scrap> listBuy4 = assetManageService.selectAllScrapList();
+		request.setAttribute("listBuy4", listBuy4);
+		return "baofeixinxi";
+	}
+
+	/**
+	 * 根据id查询报废记录,并跳转到详情页
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/scrap/scrapDetail")
+	public String toScrapDetail(@RequestParam("id") Integer id, HttpServletRequest request) {
+		Scrap query = assetManageService.findById4(id);
+		request.setAttribute("query", query);
+		return "baofeidetails";
+	}
+
+	/**
+	 * 跳转到新增报废页面
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/scrap/toAddScrap")
+	public String toAddScrapPage(HttpServletRequest request) {
+		List<Balance> balanceList = assetManageService.getBalanceList();
+		List<Department> departmentList = assetManageService.selectAllDepartmentList();
+
+		request.setAttribute("balanceList", balanceList);
+		request.setAttribute("departmentList", departmentList);
+		return "addbaofei";
+	}
+
+	/**
+	 * 添加报废记录
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/scrap/addScrap")
+	public String addScrap(@RequestParam("SCOUNT") Double SCOUNT, @RequestParam("STIME") String STIME,
+			@RequestParam("BID") Integer BID, @RequestParam("DEPARTID") Integer DEPARTID, HttpServletRequest request) {
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Scrap scrap = new Scrap();
+			scrap.setStime(format.parse(STIME));
+			scrap.setScount(SCOUNT);
+			scrap.setDepartid(DEPARTID);
+			scrap.setBid(BID);
+			assetManageService.addScrap(scrap);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<Scrap> listBuy4 = assetManageService.selectAllScrapList();
+		request.setAttribute("listBuy4", listBuy4);
+		return "baofeixinxi";
+	}
+
+	/**
+	 * 根据id查询报废记录,并跳转到编辑页
+	 * 
+	 * @param id
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/scrap/toScrapUpdate")
+	public String toScrapUpdate(@RequestParam("id") Integer id, HttpServletRequest request) {
+		Scrap query = assetManageService.findById4(id);
+		List<Balance> balances = assetManageService.getBalanceList();
+		List<Department> departments = assetManageService.selectAllDepartmentList();
+		request.setAttribute("query", query);
+		request.setAttribute("balanceList", balances);
+		request.setAttribute("departmentList", departments);
+		return "updatebaofei";
+	}
+
+	/**
+	 * 更新报废记录
+	 * 
+	 * @param TID
+	 * @param TCOUNT
+	 * @param TRTIME
+	 * @param BID
+	 * @param DEPARTID
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/scrap/update")
+	public String updateScrap(@RequestParam("SID") Integer SID, @RequestParam("SCOUNT") Double SCOUNT,
+			@RequestParam("STIME") String STIME, @RequestParam("BID") Integer BID,
+			@RequestParam("DEPARTID") Integer DEPARTID, HttpServletRequest request) {
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Scrap scrap = new Scrap();
+			scrap.setSid(SID);
+			scrap.setStime(format.parse(STIME));
+			scrap.setScount(SCOUNT);
+			scrap.setDepartid(DEPARTID);
+			scrap.setBid(BID);
+			assetManageService.updateScrap(scrap);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		List<Scrap> listBuy4 = assetManageService.selectAllScrapList();
 		request.setAttribute("listBuy4", listBuy4);
 		return "baofeixinxi";
