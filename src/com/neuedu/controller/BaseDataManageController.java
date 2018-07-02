@@ -23,15 +23,15 @@ import com.neuedu.model.Department;
 import com.neuedu.service.BaseDataManageService;
 import com.neuedu.service.UserAccountService;
 
-//ÅäÖÃmvcµÄ¿ØÖÆÆ÷Àà
+//é…ç½®mvcçš„æ§åˆ¶å™¨ç±»
 @Controller
 public class BaseDataManageController {
 
-	// ÔÚmvcµÄ¿ØÖÆ²ãÕûºÏservice·şÎñ²ã
+	// åœ¨mvcçš„æ§åˆ¶å±‚æ•´åˆserviceæœåŠ¡å±‚
 	@Autowired
 	private BaseDataManageService baseDataManageService;
 	
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:findAll.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:findAll.do
 	@RequestMapping("/category/findAll.do")
 	public String findAll(HttpServletRequest request){
 		List<Category> listcategory=baseDataManageService.selectAll();
@@ -39,7 +39,7 @@ public class BaseDataManageController {
 		
 		return "zcflxinxi";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:findBymh.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:findBymh.do
 	@RequestMapping("/category/findBymh.do")
 	public String findByCname(@RequestParam("zha") String cname,HttpServletRequest request){
 		List<Category> listcategory=baseDataManageService.selectByCnamemohu(cname);
@@ -47,21 +47,21 @@ public class BaseDataManageController {
 		
 		return "zcflxinxi";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:findById.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:findById.do
 	@RequestMapping("/category/findById.do")
 	public String findByCid(@RequestParam("cid") Integer cid,HttpServletRequest request){
 		Category category=baseDataManageService.selectByCid(cid);
 		request.setAttribute("category", category);
 		return "updatezcfl";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:findByIdchakan.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:findByIdchakan.do
 	@RequestMapping("/category/findByIdchakan.do")
 	public String findByCidchakan(@RequestParam("cid") Integer cid,HttpServletRequest request){
 		Category category=baseDataManageService.findByCidchakan(cid);
 		request.setAttribute("category", category);
 		return "zcfldetails";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:update.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:update.do
 	@RequestMapping("/category/update.do")
 	public String updatezcfl(Integer cid, String cname,HttpServletRequest request){
 		Category record=new Category();
@@ -71,7 +71,7 @@ public class BaseDataManageController {
 		baseDataManageService.updatezcfl(record);
 		return "zcfldetails";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:delete.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:delete.do
 	@RequestMapping("/category/delete.do")
 	public String deletezcfl(@RequestParam("cid") String cid, HttpServletRequest request){
 		//baseDataManageService.deletezcfl(cid);
@@ -85,7 +85,7 @@ public class BaseDataManageController {
 		request.setAttribute("listCategory", listcategory);
 		return "zcflxinxi";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:add.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:add.do
 	@RequestMapping("/category/add.do")
 	public String addzcfl(String cname, HttpServletRequest request){
 		Category record=new Category();
@@ -97,29 +97,29 @@ public class BaseDataManageController {
 	}
 
 	
-	//²¿ÃÅÉèÖÃ
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:findAll.do
+	//éƒ¨é—¨è®¾ç½®
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:findAll.do
 	@RequestMapping("/department/findAll.do")
 	public String departmentfindAll(HttpServletRequest request){
 		List<Department> listdepartment=baseDataManageService.selectAllDepartment();
 		request.setAttribute("listDepartment", listdepartment);
 		return "bmxinxi";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:findById.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:findById.do
 	@RequestMapping("/department/findById.do")
 	public String findByDid(@RequestParam("departid") Integer departid,HttpServletRequest request){
 		Department department=baseDataManageService.selectByDid(departid);
 		request.setAttribute("department", department);
 		return "updatebm";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:findByIdchakan.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:findByIdchakan.do
 	@RequestMapping("/department/findByIdchakan.do")
 	public String findByDidchakan(@RequestParam("departid") Integer departid,HttpServletRequest request){
 		Department department=baseDataManageService.findByDidchakan(departid);
 		request.setAttribute("department", department);
 		return "bmdetails";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:findBymh.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:findBymh.do
 	@RequestMapping("/department/findBymh.do")
 	public String findByDepartid(@RequestParam("zha") Integer departid,HttpServletRequest request){
 		Department department=baseDataManageService.selectByDid(departid);
@@ -128,7 +128,7 @@ public class BaseDataManageController {
 		request.setAttribute("listDepartment", list);
 		return "bmxinxi";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:update.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:update.do
 	@RequestMapping("/department/update.do")
 	public String updatebm(Integer departid, String departname,String areaname,HttpServletRequest request){
 		Department record=new Department();
@@ -140,7 +140,7 @@ public class BaseDataManageController {
 		request.setAttribute("department", record);
 		return "bmdetails";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:delete.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:delete.do
 	@RequestMapping("/department/delete.do")
 	public String deletebm(@RequestParam("cid") String departid, HttpServletRequest request){
 		//baseDataManageService.deletezcfl(cid);
@@ -154,7 +154,7 @@ public class BaseDataManageController {
 		request.setAttribute("listDepartment", listdepartment);
 		return "bmxinxi";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:add.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:add.do
 	@RequestMapping("/department/add.do")
 	public String addbm(String departname,String areaname, HttpServletRequest request){
 		Department record=new Department();
@@ -165,11 +165,11 @@ public class BaseDataManageController {
 		request.setAttribute("listDepartment", listdepartment);
 		return "bmxinxi";
 	}
-	//×Ê²úÂ¼Èë¹¦ÄÜ
+	//èµ„äº§å½•å…¥åŠŸèƒ½
 	@RequestMapping("/zc/add.do")
 	public String addzc(String zcname,Double zcnumber,BigDecimal price,Integer cid,Integer departid, HttpServletRequest request){
 		Balance balance=new Balance();
-		//balance.setBcount(bcount);ÔÚÕâÀï¼ÓÒ»¸öbid
+		//balance.setBcount(bcount);åœ¨è¿™é‡ŒåŠ ä¸€ä¸ªbid
 		Date day=new Date();    
 		//SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
 		
@@ -183,28 +183,28 @@ public class BaseDataManageController {
 		baseDataManageService.addzc(balance);
 		return "addzc";
 	}
-	//ÇøÓò¹ÜÀí
+	//åŒºåŸŸç®¡ç†
 	@RequestMapping("/area/list.do")
 	public String areafindAll(HttpServletRequest request){
 		List<Area> listdepartment=baseDataManageService.selectAllArea();
 		request.setAttribute("areaList", listdepartment);
 		return "quyuxinxi";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:findById.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:findById.do
 	@RequestMapping("/area/findById.do")
 	public String findByAreaid(@RequestParam("areaid") Integer areaid,HttpServletRequest request){
 		Area area=baseDataManageService.selectByAreaid(areaid);
 		request.setAttribute("area", area);
 		return "updatequyu";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:findByIdchakan.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:findByIdchakan.do
 	@RequestMapping("/area/findByIdchakan.do")
 	public String findByAreaidchakan(@RequestParam("areaid") Integer areaid,HttpServletRequest request){
 		Area area=baseDataManageService.findByAreaidchakan(areaid);
 		request.setAttribute("area", area);
 		return "quyudetails";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:update.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:update.do
 	@RequestMapping("/area/update.do")
 	public String updatearea(Integer areaid,String areaname,HttpServletRequest request){
 		Area record=baseDataManageService.selectByAreaid(areaid);
@@ -213,7 +213,7 @@ public class BaseDataManageController {
 		request.setAttribute("area", record);
 		return "quyudetails";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:delete.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:delete.do
 	@RequestMapping("/area/delete.do")
 	public String deletearea(@RequestParam("areaid") String areaid, HttpServletRequest request){
 		//baseDataManageService.deletezcfl(cid);
@@ -227,7 +227,7 @@ public class BaseDataManageController {
 		request.setAttribute("areaList", listdepartment);
 		return "quyuxinxi";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:add.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:add.do
 	@RequestMapping("/area/add.do")
 	public String addarea(String areaname,Integer relative,Integer areaid, HttpServletRequest request){
 		Area record=new Area();
@@ -239,7 +239,7 @@ public class BaseDataManageController {
 		request.setAttribute("areaList", listdepartment);
 		return "quyuxinxi";
 	}
-	//ÔÚä¯ÀÀÖĞÍ¨¹ıURLµ÷ÓÃÕâ¸ö·½·¨½øĞĞµÇÂ¼:findBymh.do
+	//åœ¨æµè§ˆä¸­é€šè¿‡URLè°ƒç”¨è¿™ä¸ªæ–¹æ³•è¿›è¡Œç™»å½•:findBymh.do
 	@RequestMapping("/area/findBymh.do")
 	public String findByAreaidmh(@RequestParam("zha") Integer areaid,HttpServletRequest request){
 		Area department=baseDataManageService.selectByAreaid(areaid);
