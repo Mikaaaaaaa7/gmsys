@@ -432,7 +432,7 @@ $(function(){
 				              		
 				              		Scrap b=it.next();
 				              	%>
-				           <tr>
+				           <tr style="text-align: center;">
 				                   
 				                    <td bgcolor="#FFFFFF"><%=b.getSid() %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getScount() %></td>

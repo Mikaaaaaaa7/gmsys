@@ -430,7 +430,7 @@ $(function(){
 				              	while(it.hasNext()){
 				              		Buy b=it.next();
 				              	%>
-				           <tr>
+				           <tr style="text-align: center;">
 				                    <td bgcolor="#FFFFFF"><%=b.getBuyid() %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getBuycount() %></td>
 				                    <td bgcolor="#FFFFFF"><%=format0.format(b.getBuytime())  %></td>

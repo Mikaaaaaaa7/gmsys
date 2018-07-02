@@ -393,7 +393,7 @@ function link(){
 
 <%--内容 --%>
         <div class="tpl-content-wrapper">
-            <form name="fom" id="fom" action="../area/list.do" method="post" style="text-align:center">
+            <form name="fom" id="fom" action="../area/list.do" method="post">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				
 				  <tr>
@@ -442,7 +442,7 @@ function link(){
 				                  
 				                  <!-- 使用jsp的标签技术显示数据，areaList是在控制器中保存数据的键名，area是一个临时的名称，它可以在循环中获取数据 -->
 				                  <c:forEach items="${areaList}" var="area">
-				                   <tr>
+				                   <tr style="text-align: center;">
 								      <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="${area.areaid}"/></td>
 				                    <td bgcolor="#FFFFFF">${area.areaid}</td>
 									          <td height="20" bgcolor="#FFFFFF">${area.areaname }</td>

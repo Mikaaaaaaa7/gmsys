@@ -411,7 +411,7 @@ function check(){
 <%--内容 --%>
         <div class="tpl-content-wrapper">
             <form name="fom" id="fom" method="post">
-				<table width="100%" border="0" cellspacing="0" cellpadding="0" style="text-align:center">
+				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				
 				  <tr>
 				    <td height="30">      <table width="100%" border="0" cellspacing="0" cellpadding="0">
@@ -441,7 +441,8 @@ function check(){
 					              </td>
 				          </tr>
 				              <tr>
-				                <td height="40" class="font42"><table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
+				                <td height="40" class="font42">
+									<table width="100%" border="0" cellpadding="4" cellspacing="1" bgcolor="#464646" class="newfont03">
 				
 									                  <tr>
 				                    <td height="20" colspan="14" align="center" bgcolor="#EEEEEE"class="tablestyle_title"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;资产分类详细列表 &nbsp;</td>
@@ -456,9 +457,7 @@ function check(){
 				                  </tr>
 				                  
 				              	<%
-				              	System.out.println("------------laile");
 				              		List<Category> list=(List<Category>)request.getAttribute("listCategory");
-				              		System.out.println("ds-------"+list.size());
 				              	Iterator<Category> it=list.iterator();
 				              	while(it.hasNext()){
 				              		Category c=it.next();
@@ -466,7 +465,7 @@ function check(){
 				              		%>
 				                <%--  <c:forEach items="${listCategory}" var="c"> --%>
 								
-				                  <tr>
+				                  <tr style="text-align: center;">
 				
 								            <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="<%=c.getCid()%>"/></td>
 				                    <td bgcolor="#FFFFFF"><%=c.getCid()%></td>

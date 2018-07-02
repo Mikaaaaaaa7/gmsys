@@ -437,7 +437,7 @@ $(function(){
 				              		Translate b=it.next();                                                       
 				              	%>
 				           
-				           <tr>
+				           <tr style="text-align: center;">
 				                    <td bgcolor="#FFFFFF"><%=b.getTid() %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getTcount() %></td>
 				                    <td bgcolor="#FFFFFF"><%=format0.format(b.getTrtime()) %></td>

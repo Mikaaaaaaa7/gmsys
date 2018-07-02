@@ -429,7 +429,7 @@ $(function(){
 				              		
 				              		Repair b=it.next();
 				              	%>
-				           <tr>
+				           <tr style="text-align: center;">
 				                    <td bgcolor="#FFFFFF"><%=b.getRepairid() %></td>
 				                    <td bgcolor="#FFFFFF"><%=b.getRcount() %></td>
 				                    <td bgcolor="#FFFFFF"><%=format0.format(b.getRtime()) %></td>

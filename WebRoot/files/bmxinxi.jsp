@@ -401,7 +401,7 @@ function check(){
 
 <%--内容 --%>
         <div class="tpl-content-wrapper">
-            <form name="fom" id="fom" method="post" style="text-align:center">
+            <form name="fom" id="fom" method="post">
 				<table width="100%" border="0" cellspacing="0" cellpadding="0">
 				
 				  <tr>
@@ -451,7 +451,7 @@ function check(){
 				               
 				                  
 				                  <c:forEach items="${listDepartment}" var="c">
-				                  <tr>
+				                  <tr style="text-align: center;">
 				                    <td bgcolor="#FFFFFF"><input type="checkbox" name="delid" value="${c.departid}"/></td>
 				                     <td bgcolor="#FFFFFF">${c.departid}</td>
 				                    <td height="20" bgcolor="#FFFFFF">${c.departname}</td>

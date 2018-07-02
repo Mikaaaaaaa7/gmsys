@@ -437,7 +437,7 @@ $(function(){
 				              	while(it.hasNext()){
 				              		Balance b=it.next();
 				              	%>
-				           <tr>
+				           <tr style="text-align: center;">
 				              <td bgcolor="#FFFFFF"><%=b.getBid() %></td>
 									    <td height="20" bgcolor="#FFFFFF"><%=b.getBname() %></td>
 									    <td height="20" bgcolor="#FFFFFF"><%=b.getCname() %></td>
@@ -519,7 +519,7 @@ $(function(){
 				              		while(it1.hasNext()){
 				              		Balance c =it1.next();
 				              	%>
-				                  <tr>
+				                  <tr style="text-align: center;">
 				                     <td bgcolor="#FFFFFF"><%=c.getDepartid() %></td>
 				                     <td height="20" bgcolor="#FFFFFF"><%=c.getCname() %></td>
 				                     <td height="20" bgcolor="#FFFFFF"><%=c.getBcount() %></td>
