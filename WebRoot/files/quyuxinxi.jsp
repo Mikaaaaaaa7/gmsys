@@ -473,35 +473,42 @@ function link(){
 				                    </tr>
 				                </table></td>
 				              </tr> --%>
-				               	<font size="2">共 ${page.totalPageCount} 页</font> <font size="2">第  
-						            ${page.pageNow} 页</font> <a href="../area/list.do?pageNow=1">首页</a>  
-						        <c:choose>  
-						            <c:when test="${page.pageNow - 1 > 0}">  
-						                <a href="../area/list.do?pageNow=${page.pageNow - 1}">上一页</a>  
-						            </c:when>  
-						            <c:when test="${page.pageNow - 1 <= 0}">  
-						                <a href="../area/list.do?pageNow=1">上一页</a>  
-						            </c:when>  
-						        </c:choose>  
-						        <c:choose>  
-						            <c:when test="${page.totalPageCount==0}">  
-						                <a href="../area/list.do?pageNow=${page.pageNow}">下一页</a>  
-						            </c:when>  
-						            <c:when test="${page.pageNow + 1 < page.totalPageCount}">  
-						                <a href="../area/list.do?pageNow=${page.pageNow + 1}">下一页</a>  
-						            </c:when>  
-						            <c:when test="${page.pageNow + 1 >= page.totalPageCount}">  
-						                <a href="../area/list.do?pageNow=${page.totalPageCount}">下一页</a>  
-						            </c:when>  
-						        </c:choose>  
-						        <c:choose>  
-						            <c:when test="${page.totalPageCount==0}">  
-						                <a href="../area/list.do?pageNow=${page.pageNow}">尾页</a>  
-						            </c:when>  
-						            <c:otherwise>  
-						                <a href="../area/list.do?pageNow=${page.totalPageCount}">尾页</a>  
-						            </c:otherwise>  
-						        </c:choose> 
+				              <tr>
+				              	<td width="50%">
+					               	<font size="2">共 ${page.totalPageCount} 页</font> 
+					               	<font size="2">第 ${page.pageNow} 页</font>
+				               	</td>
+				               	<td width="49%" align="right">
+					               	<a href="../area/list.do?pageNow=1">首页</a>  
+							        <c:choose>  
+							            <c:when test="${page.pageNow - 1 > 0}">  
+							                <a href="../area/list.do?pageNow=${page.pageNow - 1}">上一页</a>  
+							            </c:when>  
+							            <c:when test="${page.pageNow - 1 <= 0}">  
+							                <a href="../area/list.do?pageNow=1">上一页</a>  
+							            </c:when>  
+							        </c:choose>  
+							        <c:choose>  
+							            <c:when test="${page.totalPageCount==0}">  
+							                <a href="../area/list.do?pageNow=${page.pageNow}">下一页</a>  
+							            </c:when>  
+							            <c:when test="${page.pageNow + 1 < page.totalPageCount}">  
+							                <a href="../area/list.do?pageNow=${page.pageNow + 1}">下一页</a>  
+							            </c:when>  
+							            <c:when test="${page.pageNow + 1 >= page.totalPageCount}">  
+							                <a href="../area/list.do?pageNow=${page.totalPageCount}">下一页</a>  
+							            </c:when>  
+							        </c:choose>  
+							        <c:choose>  
+							            <c:when test="${page.totalPageCount==0}">  
+							                <a href="../area/list.do?pageNow=${page.pageNow}">尾页</a>  
+							            </c:when>  
+							            <c:otherwise>  
+							                <a href="../area/list.do?pageNow=${page.totalPageCount}">尾页</a>  
+							            </c:otherwise>  
+							        </c:choose> 
+					        	</td>
+					        </tr>
 				          </table></td>
 				        </tr>
 				      </table></td>
