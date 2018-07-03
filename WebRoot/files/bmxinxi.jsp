@@ -472,7 +472,7 @@ function check(){
 				        </tr>
 				        <tr>
 				          <td height="33"><table width="100%" border="0" align="center" cellpadding="0" cellspacing="0" class="right-font08">
-				              <tr>
+				              <!-- <tr>
 				                <td width="50%">共 <span class="right-text09">5</span> 页 | 第 <span class="right-text09">1</span> 页</td>
 				                <td width="49%" align="right">[<a href="#" class="right-font08">首页</a> | <a href="#" class="right-font08">上一页</a> | <a href="#" class="right-font08">下一页</a> | <a href="#" class="right-font08">末页</a>] 转至：</td>
 				                <td width="1%"><table width="20" border="0" cellspacing="0" cellpadding="0">
@@ -482,7 +482,36 @@ function check(){
 				                      </td>
 				                    </tr>
 				                </table></td>
-				              </tr>
+				              </tr> -->
+				              <font size="2">共 ${page.totalPageCount} 页</font> <font size="2">第  
+						            ${page.pageNow} 页</font> <a href="../department/findAll.do?pageNow=1">首页</a>  
+						        <c:choose>  
+						            <c:when test="${page.pageNow - 1 > 0}">  
+						                <a href="../department/findAll.do?pageNow=${page.pageNow - 1}">上一页</a>  
+						            </c:when>  
+						            <c:when test="${page.pageNow - 1 <= 0}">  
+						                <a href="../department/findAll.do?pageNow=1">上一页</a>  
+						            </c:when>  
+						        </c:choose>  
+						        <c:choose>  
+						            <c:when test="${page.totalPageCount==0}">  
+						                <a href="../department/findAll.do?pageNow=${page.pageNow}">下一页</a>  
+						            </c:when>  
+						            <c:when test="${page.pageNow + 1 < page.totalPageCount}">  
+						                <a href="../department/findAll.do?pageNow=${page.pageNow + 1}">下一页</a>  
+						            </c:when>  
+						            <c:when test="${page.pageNow + 1 >= page.totalPageCount}">  
+						                <a href="../department/findAll.do?pageNow=${page.totalPageCount}">下一页</a>  
+						            </c:when>  
+						        </c:choose>  
+						        <c:choose>  
+						            <c:when test="${page.totalPageCount==0}">  
+						                <a href="../department/findAll.do?pageNow=${page.pageNow}">尾页</a>  
+						            </c:when>  
+						            <c:otherwise>  
+						                <a href="../department/findAll.do?pageNow=${page.totalPageCount}">尾页</a>  
+						            </c:otherwise>  
+						        </c:choose> 
 				          </table></td>
 				        </tr>
 				      </table></td>

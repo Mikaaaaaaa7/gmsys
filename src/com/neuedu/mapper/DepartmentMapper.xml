@@ -33,4 +33,10 @@
     select DEPARTID, DEPARTNAME, AREAID, AREANAME
     from department
   </select>
+   <select id="findNewsPage" resultType="Department">
+	select * from department limit #{0},#{1}
+  </select>
+  <select id="findNewCont" resultType="long">
+	select COUNT(*) from department
+  </select>
 </mapper>

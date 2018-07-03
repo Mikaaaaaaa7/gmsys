@@ -1,5 +1,6 @@
 package com.neuedu.mapper;
 
+import com.neuedu.model.Category;
 import com.neuedu.model.Department;
 import java.util.List;
 
@@ -13,4 +14,8 @@ public interface DepartmentMapper {
     List<Department> selectAll();
 
     int updateByPrimaryKey(Department record);
+    
+    Long findNewCont();
+    
+    List<Department> findNewsPage(int i, int j);
 }

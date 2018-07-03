@@ -158,4 +158,14 @@ public class BaseDataManageServiceImpl implements BaseDataManageService{
 		// TODO Auto-generated method stub
 		return mapper.findNewsPage(i, j);
 	}
+	@Override
+	public Long findNewContDepartment() {
+		// TODO Auto-generated method stub
+		return DepartmentMapper.findNewCont();
+	}
+	@Override
+	public List<Department> findNewsPageDepartment(int i, int j) {
+		// TODO Auto-generated method stub
+		return DepartmentMapper.findNewsPage(i, j);
+	}
 }

@@ -159,9 +159,25 @@ public class BaseDataManageController {
 	//部门设置
 	//在浏览中通过URL调用这个方法进行登录:findAll.do
 	@RequestMapping("/department/findAll.do")
-	public String departmentfindAll(HttpServletRequest request){
-		List<Department> listdepartment=baseDataManageService.selectAllDepartment();
-		request.setAttribute("listDepartment", listdepartment);
+	public String departmentfindAll(Model model,HttpServletRequest request){
+		 //获取当前页数
+        String pageNow=request.getParameter("pageNow");
+        //获取总页数
+        int totalCount=((Number)baseDataManageService.findNewContDepartment()).intValue();
+        Page page=null;
+        List<Department> list=new ArrayList<Department>();
+        if (pageNow!=null) {
+            page=new Page(Integer.parseInt(pageNow), totalCount);
+            list=this.baseDataManageService.findNewsPageDepartment(page.getStartPos(),page.getPageSize());
+        }else {
+            page=new Page(1, totalCount);
+            list=this.baseDataManageService.findNewsPageDepartment(page.getStartPos(),page.getPageSize());
+        }
+        model.addAttribute("listDepartment", list);
+        model.addAttribute("page", page);
+		
+		//List<Department> listdepartment=baseDataManageService.selectAllDepartment();
+		//request.setAttribute("listDepartment", listdepartment);
 		return "bmxinxi";
 	}
 	//在浏览中通过URL调用这个方法进行登录:findById.do
@@ -201,7 +217,7 @@ public class BaseDataManageController {
 	}
 	//在浏览中通过URL调用这个方法进行登录:delete.do
 	@RequestMapping("/department/delete.do")
-	public String deletebm(@RequestParam("cid") String departid, HttpServletRequest request){
+	public String deletebm(@RequestParam("cid") String departid, Model model,HttpServletRequest request){
 		//baseDataManageService.deletezcfl(cid);
 		String[] sourcestrStrings=departid.split(":");
 		int[] sourceint=new int[sourcestrStrings.length];
@@ -209,19 +225,50 @@ public class BaseDataManageController {
 			sourceint[i]=Integer.parseInt(sourcestrStrings[i]);
 			baseDataManageService.deletebm(sourceint[i]);
 		}
-		List<Department> listdepartment=baseDataManageService.selectAllDepartment();
-		request.setAttribute("listDepartment", listdepartment);
+		 //获取当前页数
+        String pageNow=request.getParameter("pageNow");
+        //获取总页数
+        int totalCount=((Number)baseDataManageService.findNewContDepartment()).intValue();
+        Page page=null;
+        List<Department> list=new ArrayList<Department>();
+        if (pageNow!=null) {
+            page=new Page(Integer.parseInt(pageNow), totalCount);
+            list=this.baseDataManageService.findNewsPageDepartment(page.getStartPos(),page.getPageSize());
+        }else {
+            page=new Page(1, totalCount);
+            list=this.baseDataManageService.findNewsPageDepartment(page.getStartPos(),page.getPageSize());
+        }
+        model.addAttribute("listDepartment", list);
+        model.addAttribute("page", page);
+		//List<Department> listdepartment=baseDataManageService.selectAllDepartment();
+		//request.setAttribute("listDepartment", listdepartment);
 		return "bmxinxi";
 	}
 	//在浏览中通过URL调用这个方法进行登录:add.do
 	@RequestMapping("/department/add.do")
-	public String addbm(String departname,String areaname, HttpServletRequest request){
+	public String addbm(String departname,String areaname, Model model,HttpServletRequest request){
 		Department record=new Department();
 		record.setDepartname(departname);
 		record.setAreaname(areaname);
 		baseDataManageService.addbm(record);
-		List<Department> listdepartment=baseDataManageService.selectAllDepartment();
-		request.setAttribute("listDepartment", listdepartment);
+		
+		 //获取当前页数
+        String pageNow=request.getParameter("pageNow");
+        //获取总页数
+        int totalCount=((Number)baseDataManageService.findNewContDepartment()).intValue();
+        Page page=null;
+        List<Department> list=new ArrayList<Department>();
+        if (pageNow!=null) {
+            page=new Page(Integer.parseInt(pageNow), totalCount);
+            list=this.baseDataManageService.findNewsPageDepartment(page.getStartPos(),page.getPageSize());
+        }else {
+            page=new Page(1, totalCount);
+            list=this.baseDataManageService.findNewsPageDepartment(page.getStartPos(),page.getPageSize());
+        }
+        model.addAttribute("listDepartment", list);
+        model.addAttribute("page", page);
+		//List<Department> listdepartment=baseDataManageService.selectAllDepartment();
+		//request.setAttribute("listDepartment", listdepartment);
 		return "bmxinxi";
 	}
 	//资产录入功能
@@ -294,7 +341,7 @@ public class BaseDataManageController {
 	}
 	//在浏览中通过URL调用这个方法进行登录:delete.do
 	@RequestMapping("/area/delete.do")
-	public String deletearea(@RequestParam("areaid") String areaid, HttpServletRequest request){
+	public String deletearea(@RequestParam("areaid") String areaid,Model model, HttpServletRequest request){
 		//baseDataManageService.deletezcfl(cid);
 		String[] sourcestrStrings=areaid.split(":");
 		int[] sourceint=new int[sourcestrStrings.length];
@@ -302,20 +349,50 @@ public class BaseDataManageController {
 			sourceint[i]=Integer.parseInt(sourcestrStrings[i]);
 			baseDataManageService.deletearea(sourceint[i]);
 		}
-		List<Area> listdepartment=baseDataManageService.selectAllArea();
-		request.setAttribute("areaList", listdepartment);
+		 //获取当前页数
+        String pageNow=request.getParameter("pageNow");
+        //获取总页数
+        int totalCount=((Number)baseDataManageService.findNewCont()).intValue();
+        Page page=null;
+        List<Area> list=new ArrayList<Area>();
+        if (pageNow!=null) {
+            page=new Page(Integer.parseInt(pageNow), totalCount);
+            list=this.baseDataManageService.findNewsPage(page.getStartPos(),page.getPageSize());
+        }else {
+            page=new Page(1, totalCount);
+            list=this.baseDataManageService.findNewsPage(page.getStartPos(),page.getPageSize());
+        }
+        model.addAttribute("areaList", list);
+        model.addAttribute("page", page);
+		//List<Area> listdepartment=baseDataManageService.selectAllArea();
+		//request.setAttribute("areaList", listdepartment);
 		return "quyuxinxi";
 	}
 	//在浏览中通过URL调用这个方法进行登录:add.do
 	@RequestMapping("/area/add.do")
-	public String addarea(String areaname,Integer relative,Integer areaid, HttpServletRequest request){
+	public String addarea(String areaname,Integer relative,Integer areaid, Model model,HttpServletRequest request){
 		Area record=new Area();
 		record.setAreaid(areaid);
 		record.setAreaname(areaname);
 		record.setRelative(relative);
 		baseDataManageService.addarea(record);
-		List<Area> listdepartment=baseDataManageService.selectAllArea();
-		request.setAttribute("areaList", listdepartment);
+		 //获取当前页数
+        String pageNow=request.getParameter("pageNow");
+        //获取总页数
+        int totalCount=((Number)baseDataManageService.findNewCont()).intValue();
+        Page page=null;
+        List<Area> list=new ArrayList<Area>();
+        if (pageNow!=null) {
+            page=new Page(Integer.parseInt(pageNow), totalCount);
+            list=this.baseDataManageService.findNewsPage(page.getStartPos(),page.getPageSize());
+        }else {
+            page=new Page(1, totalCount);
+            list=this.baseDataManageService.findNewsPage(page.getStartPos(),page.getPageSize());
+        }
+        model.addAttribute("areaList", list);
+        model.addAttribute("page", page);
+		//List<Area> listdepartment=baseDataManageService.selectAllArea();
+		//request.setAttribute("areaList", listdepartment);
 		return "quyuxinxi";
 	}
 	//在浏览中通过URL调用这个方法进行登录:findBymh.do

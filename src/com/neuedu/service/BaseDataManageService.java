@@ -17,6 +17,9 @@ public interface BaseDataManageService {
 	public Long findNewContCategory();
 	public List<Category> findNewsPageCategory(int i, int j);
 	
+	public Long findNewContDepartment();
+	public List<Department> findNewsPageDepartment(int i, int j);
+	
 	public List<Category> selectAll();
 	public List<Category> selectByCnamemohu(String cname);
 	public Category selectByCid(Integer cid);
